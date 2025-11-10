@@ -1,0 +1,147 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #6b7fd7;
+  --white-color: #f1ecd8;
+  --black-color: #202030;
+  --accent-color: #e83151;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  /* display: grid;
+  justify-content: center; */
+  background-color: var(--black-color);
+  color: var(--white-color);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/** //////////////////// */
+/** /////HEADER//////// */
+/** //////////////////// */
+
+header {
+  position: fixed;
+  width: 100%;
+  /* border: 2px red solid; */
+  background-color: rgb(2, 62, 42);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline: 24px;
+  height: 100px;
+}
+
+header > div {
+  /* border: 4px dotted yellow; */
+  height: 60px;
+}
+
+header > div > img {
+  height: 100%;
+}
+
+header > nav {
+  /* border: 4px dotted yellow; */
+}
+
+header > nav > ul {
+  /* border: 2px red solid; */
+  display: flex;
+  gap: 24px;
+}
+
+li.navItem {
+  /* text-decoration: underline; */
+  list-style: none;
+}
+
+li.navItem a {
+  text-decoration: none;
+  color: white;
+}
+
+/** //////////////////// */
+/** /////MAIN//////// */
+/** //////////////////// */
+
+main {
+  padding-inline: 24px;
+  max-width: 1200px;
+  justify-self: center;
+}
+
+/** //////////////////// */
+/** /////Sections//////// */
+/** //////////////////// */
+
+section {
+  height: 100svh;
+}
+
+/** //////////////////// */
+/** ///HERO SECTION////// */
+/** //////////////////// */
+
+section.hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+section.hero h1 {
+  color: aquamarine;
+  font-size: 84px;
+  margin-bottom: 24px; /* det samme som: margin: 0 0 24px 0; */
+}
+
+section.hero p {
+  color: rgb(33, 251, 251);
+  font-size: 28px;
+  margin-bottom: 24px;
+}
+
+section.hero button {
+  font-size: 48px;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 40px;
+  background-color: rgb(30, 255, 139);
+  border: none;
+  color: rgb(2, 62, 42);
+}
+
+section.hero button:hover {
+  scale: 1.1;
+}
+
+section.hero button:active {
+  scale: 0.99;
+}
+
+button.scrollToTopButton {
+  /* z-index: 1000; */
+  bottom: 8px;
+  right: 8px;
+  position: fixed;
+  font-size: 32px;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 40px;
+  background-color: rgb(30, 255, 139);
+  border: none;
+  color: rgb(2, 62, 42);
+}
+
+#top {
+  position: absolute;
+  top: 0;
+}
