@@ -27,6 +27,11 @@ export function initPlayground() {
   initHTMLDemo();
   initCSSDemo();
   initCodeEditor();
+  initReactDemo();
+  initTypeScriptDemo();
+  initTailwindDemo();
+  initNodeDemo();
+  initAPIDemo();
   initVariablesDemo();
   initFunctionsDemo();
   initArraysDemo();
@@ -322,10 +327,68 @@ function initCodeEditor() {
   updateLineNumbers(cssCode, document.getElementById('css-line-numbers'));
   updateLineNumbers(jsCode, document.getElementById('js-line-numbers'));
   
-  // Update line numbers on input
-  htmlCode.addEventListener('input', () => updateLineNumbers(htmlCode, document.getElementById('html-line-numbers')));
-  cssCode.addEventListener('input', () => updateLineNumbers(cssCode, document.getElementById('css-line-numbers')));
-  jsCode.addEventListener('input', () => updateLineNumbers(jsCode, document.getElementById('js-line-numbers')));
+  // Live preview timer
+  let livePreviewTimer = null;
+  
+  // Function to update live preview
+  function updateLivePreview() {
+    try {
+      const html = htmlCode.value;
+      const css = `<style>${cssCode.value}</style>`;
+      const js = `
+        <script>
+          try {
+            ${jsCode.value}
+          } catch (error) {
+            console.error('JavaScript Error:', error);
+          }
+        <\/script>
+      `;
+      
+      const fullCode = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          ${css}
+        </head>
+        <body>
+          ${html}
+          ${js}
+        </body>
+        </html>
+      `;
+      
+      if (previewFrame) {
+        const iframe = previewFrame.contentDocument || previewFrame.contentWindow.document;
+        iframe.open();
+        iframe.write(fullCode);
+        iframe.close();
+      }
+    } catch (error) {
+      console.error('Live Preview Error:', error);
+    }
+  }
+  
+  // Update line numbers on input with debounced live preview
+  htmlCode.addEventListener('input', () => {
+    updateLineNumbers(htmlCode, document.getElementById('html-line-numbers'));
+    clearTimeout(livePreviewTimer);
+    livePreviewTimer = setTimeout(updateLivePreview, 500);
+  });
+  
+  cssCode.addEventListener('input', () => {
+    updateLineNumbers(cssCode, document.getElementById('css-line-numbers'));
+    clearTimeout(livePreviewTimer);
+    livePreviewTimer = setTimeout(updateLivePreview, 500);
+  });
+  
+  jsCode.addEventListener('input', () => {
+    updateLineNumbers(jsCode, document.getElementById('js-line-numbers'));
+    clearTimeout(livePreviewTimer);
+    livePreviewTimer = setTimeout(updateLivePreview, 1000); // Longer delay for JS to avoid errors
+  });
   
   // Tab key support (insert 2 spaces)
   [htmlCode, cssCode, jsCode].forEach(textarea => {
@@ -340,28 +403,64 @@ function initCodeEditor() {
     });
   });
   
-  // Run code
+  // Run code with live preview and error handling
   if (runBtn) {
     runBtn.addEventListener('click', () => {
-      const html = htmlCode.value;
-      const css = `<style>${cssCode.value}</style>`;
-      const js = `<script>${jsCode.value}<\/script>`;
-      
-      const fullCode = html + css + js;
-      
-      // Update iframe
-      const iframe = previewFrame.contentDocument || previewFrame.contentWindow.document;
-      iframe.open();
-      iframe.write(fullCode);
-      iframe.close();
-      
-      // Visual feedback
-      runBtn.textContent = '✓ Kjørt!';
-      runBtn.style.background = 'var(--success-color)';
-      setTimeout(() => {
-        runBtn.textContent = '▶ Kjør Kode';
-        runBtn.style.background = '';
-      }, 1500);
+      try {
+        const html = htmlCode.value;
+        const css = `<style>${cssCode.value}</style>`;
+        
+        // Wrap JS in try-catch for error handling
+        const js = `
+          <script>
+            try {
+              ${jsCode.value}
+            } catch (error) {
+              console.error('JavaScript Error:', error);
+              document.body.innerHTML += '<div style="position: fixed; bottom: 20px; right: 20px; background: #ef4444; color: white; padding: 1rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); max-width: 400px; z-index: 9999;"><strong>⚠️ JavaScript Error:</strong><br>' + error.message + '</div>';
+            }
+          <\/script>
+        `;
+        
+        const fullCode = `
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            ${css}
+          </head>
+          <body>
+            ${html}
+            ${js}
+          </body>
+          </html>
+        `;
+        
+        // Update iframe with error handling
+        if (previewFrame) {
+          const iframe = previewFrame.contentDocument || previewFrame.contentWindow.document;
+          iframe.open();
+          iframe.write(fullCode);
+          iframe.close();
+          
+          // Visual feedback
+          runBtn.textContent = '✓ Kjørt!';
+          runBtn.style.background = 'var(--success-color)';
+          setTimeout(() => {
+            runBtn.textContent = '▶ Kjør Kode';
+            runBtn.style.background = '';
+          }, 1500);
+        }
+      } catch (error) {
+        console.error('Preview Error:', error);
+        runBtn.textContent = '❌ Feil!';
+        runBtn.style.background = 'var(--error-color)';
+        setTimeout(() => {
+          runBtn.textContent = '▶ Kjør Kode';
+          runBtn.style.background = '';
+        }, 2000);
+      }
     });
   }
   
@@ -401,6 +500,600 @@ function initCodeEditor() {
           copyBtn.textContent = '📋 Kopier';
         }, 1500);
       }
+    });
+  }
+}
+
+/**
+ * ==========================================
+ * REACT DEMO
+ * ==========================================
+ */
+
+function initReactDemo() {
+  const componentBtn = document.getElementById('reactComponentBtn');
+  const stateBtn = document.getElementById('reactStateBtn');
+  const effectBtn = document.getElementById('reactEffectBtn');
+  const output = document.getElementById('reactOutput');
+  
+  if (!output) return;
+  
+  // Component demo
+  if (componentBtn) {
+    componentBtn.addEventListener('click', () => {
+      output.innerHTML = `
+        <p><strong>React Functional Component:</strong></p>
+        <pre style="background: var(--bg-tertiary); padding: 1rem; border-radius: 8px; overflow-x: auto;"><code>// Functional Component
+function Welcome({ name }) {
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Hei, {name}!&lt;/h1&gt;
+      &lt;p&gt;Velkommen til React&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+
+// Bruk:
+&lt;Welcome name="Ola" /&gt;</code></pre>
+        <div style="margin-top: 1rem; padding: 1.5rem; background: var(--bg-tertiary); border-radius: 8px; border-left: 4px solid var(--primary-color);">
+          <h3 style="color: var(--primary-color); margin-bottom: 0.5rem;">Hei, Ola!</h3>
+          <p style="color: var(--text-secondary); margin: 0;">Velkommen til React</p>
+        </div>
+        <p style="color: var(--text-muted); margin-top: 1rem;">
+          Components er gjenbrukbare UI-byggeklosser. Props lar deg sende data til components.
+        </p>
+      `;
+    });
+  }
+  
+  // useState demo
+  if (stateBtn) {
+    stateBtn.addEventListener('click', () => {
+      output.innerHTML = `
+        <p><strong>React useState Hook:</strong></p>
+        <pre style="background: var(--bg-tertiary); padding: 1rem; border-radius: 8px; overflow-x: auto;"><code>function Counter() {
+  const [count, setCount] = useState(0);
+  
+  return (
+    &lt;div&gt;
+      &lt;p&gt;Count: {count}&lt;/p&gt;
+      &lt;button onClick={() => setCount(count + 1)}&gt;
+        Increment
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+        <div style="margin-top: 1rem; padding: 1.5rem; background: var(--bg-tertiary); border-radius: 8px; text-align: center;">
+          <p style="font-size: 2rem; font-weight: bold; color: var(--primary-color); margin-bottom: 1rem;">Count: <span id="reactCount">0</span></p>
+          <button onclick="document.getElementById('reactCount').textContent = parseInt(document.getElementById('reactCount').textContent) + 1" style="padding: 0.75rem 1.5rem; background: var(--primary-color); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">Increment</button>
+        </div>
+        <p style="color: var(--text-muted); margin-top: 1rem;">
+          <code>useState</code> lar deg legge til state i functional components. Klikk på knappen!
+        </p>
+      `;
+    });
+  }
+  
+  // useEffect demo
+  if (effectBtn) {
+    effectBtn.addEventListener('click', () => {
+      output.innerHTML = `
+        <p><strong>React useEffect Hook:</strong></p>
+        <pre style="background: var(--bg-tertiary); padding: 1rem; border-radius: 8px; overflow-x: auto;"><code>function Timer() {
+  const [seconds, setSeconds] = useState(0);
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSeconds(s => s + 1);
+    }, 1000);
+    
+    // Cleanup function
+    return () => clearInterval(interval);
+  }, []); // Empty array = run once
+  
+  return &lt;p&gt;Seconds: {seconds}&lt;/p&gt;;
+}</code></pre>
+        <div style="margin-top: 1rem; padding: 1.5rem; background: var(--bg-tertiary); border-radius: 8px; text-align: center;">
+          <p style="font-size: 1.5rem; color: var(--secondary-color);">⏱️ Timer eksempel</p>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">useEffect kjører side effects som timers, API calls, subscriptions</p>
+        </div>
+        <p style="color: var(--text-muted); margin-top: 1rem;">
+          <code>useEffect</code> håndterer side effects. Dependency array [] betyr "kjør kun ved mount".
+        </p>
+      `;
+    });
+  }
+}
+
+/**
+ * ==========================================
+ * TYPESCRIPT DEMO
+ * ==========================================
+ */
+
+function initTypeScriptDemo() {
+  const typesBtn = document.getElementById('tsTypesBtn');
+  const interfaceBtn = document.getElementById('tsInterfaceBtn');
+  const genericsBtn = document.getElementById('tsGenericsBtn');
+  const output = document.getElementById('tsOutput');
+  
+  if (!output) return;
+  
+  // Types demo
+  if (typesBtn) {
+    typesBtn.addEventListener('click', () => {
+      output.innerHTML = `
+        <p><strong>TypeScript Basic Types:</strong></p>
+        <pre style="background: var(--bg-tertiary); padding: 1rem; border-radius: 8px; overflow-x: auto;"><code>// Primitive types
+let name: string = "Ola";
+let age: number = 25;
+let isActive: boolean = true;
+
+// Array types
+let numbers: number[] = [1, 2, 3];
+let names: Array&lt;string&gt; = ["Ola", "Kari"];
+
+// Union types
+let id: string | number = 123;
+
+// Function types
+function greet(name: string): string {
+  return \`Hei, \${name}!\`;
+}</code></pre>
+        <div style="margin-top: 1rem; padding: 1rem; background: var(--bg-tertiary); border-radius: 8px;">
+          <p style="color: var(--success-color);">✓ Type-safe kode</p>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">
+            TypeScript fanger feil før kjøring: <code style="color: var(--error-color);">age = "25" // Error!</code>
+          </p>
+        </div>
+        <p style="color: var(--text-muted); margin-top: 1rem;">
+          Types gir autocomplete, refactoring og finner bugs tidlig!
+        </p>
+      `;
+    });
+  }
+  
+  // Interface demo
+  if (interfaceBtn) {
+    interfaceBtn.addEventListener('click', () => {
+      output.innerHTML = `
+        <p><strong>TypeScript Interface:</strong></p>
+        <pre style="background: var(--bg-tertiary); padding: 1rem; border-radius: 8px; overflow-x: auto;"><code>// Define interface
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  age?: number; // Optional property
+}
+
+// Use interface
+const user: User = {
+  id: 1,
+  name: "Ola Nordmann",
+  email: "ola@example.com"
+};
+
+function greetUser(user: User): string {
+  return \`Hei, \${user.name}!\`;
+}</code></pre>
+        <div style="margin-top: 1rem; padding: 1.5rem; background: var(--bg-tertiary); border-radius: 8px; border-left: 4px solid var(--secondary-color);">
+          <p style="color: var(--secondary-color); font-weight: bold;">User Object:</p>
+          <pre style="margin-top: 0.5rem; color: var(--text-secondary); font-size: 0.9rem;"><code>{
+  id: 1,
+  name: "Ola Nordmann",
+  email: "ola@example.com"
+}</code></pre>
+        </div>
+        <p style="color: var(--text-muted); margin-top: 1rem;">
+          Interfaces definerer strukturen til objekter. <code>?</code> gjør properties optional.
+        </p>
+      `;
+    });
+  }
+  
+  // Generics demo
+  if (genericsBtn) {
+    genericsBtn.addEventListener('click', () => {
+      output.innerHTML = `
+        <p><strong>TypeScript Generics:</strong></p>
+        <pre style="background: var(--bg-tertiary); padding: 1rem; border-radius: 8px; overflow-x: auto;"><code>// Generic function
+function identity&lt;T&gt;(value: T): T {
+  return value;
+}
+
+// Usage
+const num = identity&lt;number&gt;(42);
+const str = identity&lt;string&gt;("Hello");
+
+// Generic array function
+function firstElement&lt;T&gt;(arr: T[]): T | undefined {
+  return arr[0];
+}
+
+const first = firstElement([1, 2, 3]); // number
+const firstStr = firstElement(["a", "b"]); // string</code></pre>
+        <div style="margin-top: 1rem; padding: 1rem; background: var(--bg-tertiary); border-radius: 8px;">
+          <p style="color: var(--accent-color); font-weight: bold;">Generics = Gjenbrukbare typer</p>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">
+            <code>&lt;T&gt;</code> er en type variabel som kan være hva som helst!
+          </p>
+        </div>
+        <p style="color: var(--text-muted); margin-top: 1rem;">
+          Generics lar deg skrive type-safe kode som fungerer med mange typer.
+        </p>
+      `;
+    });
+  }
+}
+
+/**
+ * ==========================================
+ * TAILWIND DEMO
+ * ==========================================
+ */
+
+function initTailwindDemo() {
+  const layoutBtn = document.getElementById('twLayoutBtn');
+  const colorsBtn = document.getElementById('twColorsBtn');
+  const responsiveBtn = document.getElementById('twResponsiveBtn');
+  const output = document.getElementById('twOutput');
+  
+  if (!output) return;
+  
+  // Layout demo
+  if (layoutBtn) {
+    layoutBtn.addEventListener('click', () => {
+      output.innerHTML = `
+        <p><strong>Tailwind Layout Classes:</strong></p>
+        <pre style="background: var(--bg-tertiary); padding: 1rem; border-radius: 8px; overflow-x: auto;"><code>&lt;div class="flex items-center justify-center gap-4"&gt;
+  &lt;div class="p-4 bg-blue-500 rounded-lg"&gt;Box 1&lt;/div&gt;
+  &lt;div class="p-4 bg-purple-500 rounded-lg"&gt;Box 2&lt;/div&gt;
+  &lt;div class="p-4 bg-pink-500 rounded-lg"&gt;Box 3&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 1rem; padding: 1.5rem; background: var(--bg-tertiary); border-radius: 8px;">
+          <div style="padding: 1rem; background: #3b82f6; border-radius: 8px; color: white; font-weight: bold;">Box 1</div>
+          <div style="padding: 1rem; background: #a855f7; border-radius: 8px; color: white; font-weight: bold;">Box 2</div>
+          <div style="padding: 1rem; background: #ec4899; border-radius: 8px; color: white; font-weight: bold;">Box 3</div>
+        </div>
+        <p style="color: var(--text-muted); margin-top: 1rem;">
+          <code>flex</code> = flexbox, <code>items-center</code> = align center, <code>gap-4</code> = spacing
+        </p>
+      `;
+    });
+  }
+  
+  // Colors demo
+  if (colorsBtn) {
+    colorsBtn.addEventListener('click', () => {
+      output.innerHTML = `
+        <p><strong>Tailwind Color System:</strong></p>
+        <pre style="background: var(--bg-tertiary); padding: 1rem; border-radius: 8px; overflow-x: auto;"><code>&lt;button class="bg-blue-500 hover:bg-blue-700 text-white"&gt;
+  Click me
+&lt;/button&gt;
+
+&lt;p class="text-gray-600"&gt;Gray text&lt;/p&gt;
+&lt;div class="bg-red-100 border-red-500"&gt;Alert&lt;/div&gt;</code></pre>
+        <div style="margin-top: 1rem; padding: 1.5rem; background: var(--bg-tertiary); border-radius: 8px;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 0.5rem;">
+            <div style="padding: 1rem; background: #3b82f6; border-radius: 4px; text-align: center; color: white; font-size: 0.8rem;">blue-500</div>
+            <div style="padding: 1rem; background: #10b981; border-radius: 4px; text-align: center; color: white; font-size: 0.8rem;">green-500</div>
+            <div style="padding: 1rem; background: #f59e0b; border-radius: 4px; text-align: center; color: white; font-size: 0.8rem;">amber-500</div>
+            <div style="padding: 1rem; background: #ef4444; border-radius: 4px; text-align: center; color: white; font-size: 0.8rem;">red-500</div>
+            <div style="padding: 1rem; background: #8b5cf6; border-radius: 4px; text-align: center; color: white; font-size: 0.8rem;">purple-500</div>
+            <div style="padding: 1rem; background: #ec4899; border-radius: 4px; text-align: center; color: white; font-size: 0.8rem;">pink-500</div>
+          </div>
+        </div>
+        <p style="color: var(--text-muted); margin-top: 1rem;">
+          Tailwind har 22 farger med 10 shades hver (50-900). <code>hover:</code> for hover states!
+        </p>
+      `;
+    });
+  }
+  
+  // Responsive demo
+  if (responsiveBtn) {
+    responsiveBtn.addEventListener('click', () => {
+      output.innerHTML = `
+        <p><strong>Tailwind Responsive Design:</strong></p>
+        <pre style="background: var(--bg-tertiary); padding: 1rem; border-radius: 8px; overflow-x: auto;"><code>&lt;div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"&gt;
+  &lt;div&gt;Item 1&lt;/div&gt;
+  &lt;div&gt;Item 2&lt;/div&gt;
+  &lt;div&gt;Item 3&lt;/div&gt;
+  &lt;div&gt;Item 4&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Breakpoints: --&gt;
+&lt;!-- sm: 640px --&gt;
+&lt;!-- md: 768px --&gt;
+&lt;!-- lg: 1024px --&gt;
+&lt;!-- xl: 1280px --&gt;</code></pre>
+        <div style="margin-top: 1rem; padding: 1rem; background: var(--bg-tertiary); border-radius: 8px;">
+          <p style="color: var(--primary-color); font-weight: bold; margin-bottom: 0.5rem;">Mobile First Approach:</p>
+          <p style="color: var(--text-secondary); font-size: 0.9rem;">
+            • Default: 1 kolonne<br>
+            • md (tablet): 2 kolonner<br>
+            • lg (desktop): 4 kolonner
+          </p>
+        </div>
+        <p style="color: var(--text-muted); margin-top: 1rem;">
+          Prefixes som <code>md:</code> og <code>lg:</code> aktiveres ved ulike skjermstørrelser!
+        </p>
+      `;
+    });
+  }
+}
+
+/**
+ * ==========================================
+ * NODE.JS DEMO
+ * ==========================================
+ */
+
+function initNodeDemo() {
+  const modulesBtn = document.getElementById('nodeModulesBtn');
+  const expressBtn = document.getElementById('nodeExpressBtn');
+  const fsBtn = document.getElementById('nodeFsBtn');
+  const output = document.getElementById('nodeOutput');
+  
+  if (!output) return;
+  
+  // Modules demo
+  if (modulesBtn) {
+    modulesBtn.addEventListener('click', () => {
+      output.innerHTML = `
+        <p><strong>Node.js Modules (ES6):</strong></p>
+        <pre style="background: var(--bg-tertiary); padding: 1rem; border-radius: 8px; overflow-x: auto;"><code>// math.js - Export functions
+export function add(a, b) {
+  return a + b;
+}
+
+export function multiply(a, b) {
+  return a * b;
+}
+
+// app.js - Import functions
+import { add, multiply } from './math.js';
+
+console.log(add(5, 3));      // 8
+console.log(multiply(4, 2)); // 8</code></pre>
+        <div style="margin-top: 1rem; padding: 1rem; background: var(--bg-tertiary); border-radius: 8px; border-left: 4px solid var(--success-color);">
+          <p style="color: var(--success-color); font-weight: bold;">✓ Modules lar deg dele kode mellom filer</p>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">
+            <code>export</code> = gjør tilgjengelig, <code>import</code> = hent fra annen fil
+          </p>
+        </div>
+        <p style="color: var(--text-muted); margin-top: 1rem;">
+          Node.js støtter både CommonJS (require) og ES6 modules (import/export).
+        </p>
+      `;
+    });
+  }
+  
+  // Express demo
+  if (expressBtn) {
+    expressBtn.addEventListener('click', () => {
+      output.innerHTML = `
+        <p><strong>Express.js - Web Server:</strong></p>
+        <pre style="background: var(--bg-tertiary); padding: 1rem; border-radius: 8px; overflow-x: auto;"><code>// Installer: npm install express
+const express = require('express');
+const app = express();
+
+// Middleware
+app.use(express.json());
+
+// Routes
+app.get('/', (req, res) => {
+  res.send('Hei, verden!');
+});
+
+app.get('/api/users', (req, res) => {
+  res.json([
+    { id: 1, name: 'Ola' },
+    { id: 2, name: 'Kari' }
+  ]);
+});
+
+// Start server
+app.listen(3000, () => {
+  console.log('Server kjører på port 3000');
+});</code></pre>
+        <div style="margin-top: 1rem; padding: 1rem; background: var(--bg-tertiary); border-radius: 8px;">
+          <p style="color: var(--primary-color); font-weight: bold;">Express Routes:</p>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">
+            • <code>GET /</code> → "Hei, verden!"<br>
+            • <code>GET /api/users</code> → JSON data
+          </p>
+        </div>
+        <p style="color: var(--text-muted); margin-top: 1rem;">
+          Express er det mest populære Node.js web framework!
+        </p>
+      `;
+    });
+  }
+  
+  // File System demo
+  if (fsBtn) {
+    fsBtn.addEventListener('click', () => {
+      output.innerHTML = `
+        <p><strong>Node.js File System:</strong></p>
+        <pre style="background: var(--bg-tertiary); padding: 1rem; border-radius: 8px; overflow-x: auto;"><code>const fs = require('fs');
+
+// Les fil (async)
+fs.readFile('data.txt', 'utf8', (err, data) => {
+  if (err) throw err;
+  console.log(data);
+});
+
+// Skriv fil
+fs.writeFile('output.txt', 'Hello!', (err) => {
+  if (err) throw err;
+  console.log('Fil lagret!');
+});
+
+// Promises version (moderne)
+const fsPromises = require('fs').promises;
+
+async function readData() {
+  const data = await fsPromises.readFile('data.txt', 'utf8');
+  return data;
+}</code></pre>
+        <div style="margin-top: 1rem; padding: 1rem; background: var(--bg-tertiary); border-radius: 8px;">
+          <p style="color: var(--accent-color); font-weight: bold;">📁 File Operations:</p>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">
+            • <code>readFile()</code> - Les fil<br>
+            • <code>writeFile()</code> - Skriv fil<br>
+            • <code>appendFile()</code> - Legg til i fil<br>
+            • <code>unlink()</code> - Slett fil
+          </p>
+        </div>
+        <p style="color: var(--text-muted); margin-top: 1rem;">
+          Node.js kan jobbe med filer på serveren - noe browseren ikke kan!
+        </p>
+      `;
+    });
+  }
+}
+
+/**
+ * ==========================================
+ * API DEMO
+ * ==========================================
+ */
+
+function initAPIDemo() {
+  const getBtn = document.getElementById('apiGetBtn');
+  const postBtn = document.getElementById('apiPostBtn');
+  const errorBtn = document.getElementById('apiErrorBtn');
+  const output = document.getElementById('apiOutput');
+  
+  if (!output) return;
+  
+  // GET request demo
+  if (getBtn) {
+    getBtn.addEventListener('click', async () => {
+      output.innerHTML = '<p style="color: var(--accent-color);">⏳ Sender GET request...</p>';
+      
+      try {
+        // Bruk JSONPlaceholder - gratis test API
+        const response = await fetch('https://jsonplaceholder.typicode.com/users/1');
+        const data = await response.json();
+        
+        output.innerHTML = `
+          <p><strong>GET Request:</strong></p>
+          <pre style="background: var(--bg-tertiary); padding: 1rem; border-radius: 8px; overflow-x: auto;"><code>// Fetch data fra API
+const response = await fetch('/api/users/1');
+const data = await response.json();
+
+console.log(data);</code></pre>
+          <div style="margin-top: 1rem; padding: 1rem; background: var(--bg-tertiary); border-radius: 8px;">
+            <p style="color: var(--success-color); font-weight: bold;">✅ Response:</p>
+            <pre style="margin-top: 0.5rem; color: var(--text-secondary); font-size: 0.85rem; overflow-x: auto;"><code>${JSON.stringify(data, null, 2)}</code></pre>
+          </div>
+          <p style="color: var(--text-muted); margin-top: 1rem;">
+            GET requests henter data fra server. Dette er ekte data fra JSONPlaceholder API!
+          </p>
+        `;
+      } catch (error) {
+        output.innerHTML = `<p style="color: var(--error-color);">❌ Feil: ${error.message}</p>`;
+      }
+    });
+  }
+  
+  // POST request demo
+  if (postBtn) {
+    postBtn.addEventListener('click', async () => {
+      output.innerHTML = '<p style="color: var(--accent-color);">⏳ Sender POST request...</p>';
+      
+      try {
+        const newUser = {
+          name: 'Ola Nordmann',
+          email: 'ola@example.com'
+        };
+        
+        const response = await fetch('https://jsonplaceholder.typicode.com/users', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(newUser)
+        });
+        
+        const data = await response.json();
+        
+        output.innerHTML = `
+          <p><strong>POST Request:</strong></p>
+          <pre style="background: var(--bg-tertiary); padding: 1rem; border-radius: 8px; overflow-x: auto;"><code>// Send data til API
+const newUser = {
+  name: 'Ola Nordmann',
+  email: 'ola@example.com'
+};
+
+const response = await fetch('/api/users', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(newUser)
+});
+
+const data = await response.json();</code></pre>
+          <div style="margin-top: 1rem; padding: 1rem; background: var(--bg-tertiary); border-radius: 8px;">
+            <p style="color: var(--success-color); font-weight: bold;">✅ Created:</p>
+            <pre style="margin-top: 0.5rem; color: var(--text-secondary); font-size: 0.85rem; overflow-x: auto;"><code>${JSON.stringify(data, null, 2)}</code></pre>
+          </div>
+          <p style="color: var(--text-muted); margin-top: 1rem;">
+            POST requests sender data til server for å opprette nye ressurser.
+          </p>
+        `;
+      } catch (error) {
+        output.innerHTML = `<p style="color: var(--error-color);">❌ Feil: ${error.message}</p>`;
+      }
+    });
+  }
+  
+  // Error handling demo
+  if (errorBtn) {
+    errorBtn.addEventListener('click', () => {
+      output.innerHTML = `
+        <p><strong>API Error Handling:</strong></p>
+        <pre style="background: var(--bg-tertiary); padding: 1rem; border-radius: 8px; overflow-x: auto;"><code>async function fetchUser(id) {
+  try {
+    const response = await fetch(\`/api/users/\${id}\`);
+    
+    // Sjekk om request var vellykket
+    if (!response.ok) {
+      throw new Error(\`HTTP error! status: \${response.status}\`);
+    }
+    
+    const data = await response.json();
+    return data;
+    
+  } catch (error) {
+    console.error('Fetch failed:', error);
+    // Vis feilmelding til bruker
+    showErrorMessage(error.message);
+  }
+}
+
+// HTTP Status Codes:
+// 200 - OK
+// 201 - Created
+// 400 - Bad Request
+// 401 - Unauthorized
+// 404 - Not Found
+// 500 - Server Error</code></pre>
+        <div style="margin-top: 1rem; padding: 1rem; background: var(--bg-tertiary); border-radius: 8px;">
+          <p style="color: var(--error-color); font-weight: bold;">⚠️ Vanlige HTTP Status Codes:</p>
+          <div style="display: grid; gap: 0.5rem; margin-top: 0.5rem; color: var(--text-secondary); font-size: 0.9rem;">
+            <p><code style="color: var(--success-color);">200</code> - OK (vellykket)</p>
+            <p><code style="color: var(--success-color);">201</code> - Created (opprettet)</p>
+            <p><code style="color: var(--warning-color);">400</code> - Bad Request (ugyldig data)</p>
+            <p><code style="color: var(--error-color);">404</code> - Not Found (ikke funnet)</p>
+            <p><code style="color: var(--error-color);">500</code> - Server Error (server feil)</p>
+          </div>
+        </div>
+        <p style="color: var(--text-muted); margin-top: 1rem;">
+          Alltid håndter errors med try/catch og sjekk response.ok!
+        </p>
+      `;
     });
   }
 }
@@ -968,6 +1661,11 @@ console.log(data);  // "${data}"</code></pre>
  * ✅ HTML demo (semantic tags, forms, lists)
  * ✅ CSS demo (flexbox, grid, animations)
  * ✅ Code Editor (HTML, CSS, JS med live preview)
+ * ✅ React demo (components, useState, useEffect)
+ * ✅ TypeScript demo (types, interface, generics)
+ * ✅ Tailwind demo (layout, colors, responsive)
+ * ✅ Node.js demo (modules, express, file system)
+ * ✅ API demo (GET, POST, error handling med live calls)
  * ✅ Variables demo (input og output)
  * ✅ Functions demo (matematikk)
  * ✅ Arrays demo (map, filter, reduce)
@@ -980,6 +1678,9 @@ console.log(data);  // "${data}"</code></pre>
  * Konsepter vist:
  * - HTML semantic tags, forms, lists
  * - CSS flexbox, grid, animations
+ * - React components, hooks
+ * - TypeScript types, interfaces
+ * - Tailwind utility classes
  * - Event listeners
  * - DOM manipulation
  * - Functions
@@ -990,3 +1691,292 @@ console.log(data);  // "${data}"</code></pre>
  * - Promises & Async/Await
  * - LocalStorage
  */
+
+/**
+ * ==========================================
+ * REACT DEMO
+ * ==========================================
+ */
+
+function initReactDemo() {
+  const componentBtn = document.getElementById('reactComponentBtn');
+  const stateBtn = document.getElementById('reactStateBtn');
+  const effectBtn = document.getElementById('reactEffectBtn');
+  const output = document.getElementById('reactOutput');
+  
+  if (!output) return;
+  
+  // Component demo
+  if (componentBtn) {
+    componentBtn.addEventListener('click', () => {
+      output.innerHTML = `
+        <p><strong>React Functional Component:</strong></p>
+        <pre style="background: var(--bg-tertiary); padding: 1rem; border-radius: 8px; overflow-x: auto;"><code>// Functional Component
+function Welcome({ name }) {
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Hei, {name}!&lt;/h1&gt;
+      &lt;p&gt;Velkommen til React&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+
+// Bruk:
+&lt;Welcome name="Ola" /&gt;</code></pre>
+        <div style="margin-top: 1rem; padding: 1.5rem; background: var(--bg-tertiary); border-radius: 8px; border-left: 4px solid var(--primary-color);">
+          <h3 style="color: var(--primary-color); margin-bottom: 0.5rem;">Hei, Ola!</h3>
+          <p style="color: var(--text-secondary); margin: 0;">Velkommen til React</p>
+        </div>
+        <p style="color: var(--text-muted); margin-top: 1rem;">
+          Components er gjenbrukbare UI-byggeklosser. Props lar deg sende data til components.
+        </p>
+      `;
+    });
+  }
+  
+  // useState demo
+  if (stateBtn) {
+    stateBtn.addEventListener('click', () => {
+      output.innerHTML = `
+        <p><strong>React useState Hook:</strong></p>
+        <pre style="background: var(--bg-tertiary); padding: 1rem; border-radius: 8px; overflow-x: auto;"><code>function Counter() {
+  const [count, setCount] = useState(0);
+  
+  return (
+    &lt;div&gt;
+      &lt;p&gt;Count: {count}&lt;/p&gt;
+      &lt;button onClick={() => setCount(count + 1)}&gt;
+        Increment
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+        <div style="margin-top: 1rem; padding: 1.5rem; background: var(--bg-tertiary); border-radius: 8px; text-align: center;">
+          <p style="font-size: 1.5rem; margin-bottom: 1rem;">Count: <span id="reactCount" style="color: var(--primary-color); font-weight: bold;">0</span></p>
+          <button onclick="document.getElementById('reactCount').textContent = parseInt(document.getElementById('reactCount').textContent) + 1" style="padding: 0.5rem 1.5rem; background: var(--primary-color); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">Increment</button>
+        </div>
+        <p style="color: var(--text-muted); margin-top: 1rem;">
+          <code>useState</code> lar deg legge til state i functional components. State oppdateres med setter-funksjonen.
+        </p>
+      `;
+    });
+  }
+  
+  // useEffect demo
+  if (effectBtn) {
+    effectBtn.addEventListener('click', () => {
+      output.innerHTML = `
+        <p><strong>React useEffect Hook:</strong></p>
+        <pre style="background: var(--bg-tertiary); padding: 1rem; border-radius: 8px; overflow-x: auto;"><code>function Timer() {
+  const [seconds, setSeconds] = useState(0);
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSeconds(s => s + 1);
+    }, 1000);
+    
+    // Cleanup function
+    return () => clearInterval(interval);
+  }, []); // Empty array = run once
+  
+  return &lt;p&gt;Seconds: {seconds}&lt;/p&gt;;
+}</code></pre>
+        <p style="color: var(--text-muted); margin-top: 1rem;">
+          <code>useEffect</code> kjører side effects (API calls, subscriptions, timers). 
+          Dependency array [] bestemmer når effect kjører.
+        </p>
+        <div style="margin-top: 1rem; padding: 1rem; background: rgba(124, 58, 237, 0.1); border-radius: 8px; border-left: 4px solid var(--primary-color);">
+          <p style="margin: 0;"><strong>💡 Tips:</strong> Tom array [] = kjør én gang. [count] = kjør når count endres.</p>
+        </div>
+      `;
+    });
+  }
+}
+
+/**
+ * ==========================================
+ * TYPESCRIPT DEMO
+ * ==========================================
+ */
+
+function initTypeScriptDemo() {
+  const typesBtn = document.getElementById('tsTypesBtn');
+  const interfaceBtn = document.getElementById('tsInterfaceBtn');
+  const genericsBtn = document.getElementById('tsGenericsBtn');
+  const output = document.getElementById('tsOutput');
+  
+  if (!output) return;
+  
+  // Types demo
+  if (typesBtn) {
+    typesBtn.addEventListener('click', () => {
+      output.innerHTML = `
+        <p><strong>TypeScript Basic Types:</strong></p>
+        <pre style="background: var(--bg-tertiary); padding: 1rem; border-radius: 8px; overflow-x: auto;"><code>// Primitive types
+let name: string = "Ola";
+let age: number = 25;
+let isActive: boolean = true;
+
+// Array types
+let numbers: number[] = [1, 2, 3];
+let names: Array&lt;string&gt; = ["Ola", "Emma"];
+
+// Union types
+let id: string | number = 123;
+
+// Function types
+function greet(name: string): string {
+  return \`Hei, \${name}!\`;
+}</code></pre>
+        <p style="color: var(--text-muted); margin-top: 1rem;">
+          TypeScript legger til type annotations som gir bedre autocomplete og fanger feil før runtime.
+        </p>
+      `;
+    });
+  }
+  
+  // Interface demo
+  if (interfaceBtn) {
+    interfaceBtn.addEventListener('click', () => {
+      output.innerHTML = `
+        <p><strong>TypeScript Interfaces:</strong></p>
+        <pre style="background: var(--bg-tertiary); padding: 1rem; border-radius: 8px; overflow-x: auto;"><code>// Interface definerer objektstruktur
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  age?: number; // Optional property
+}
+
+// Bruk interface
+const user: User = {
+  id: 1,
+  name: "Ola Nordmann",
+  email: "ola@example.com"
+};
+
+// Function med interface
+function greetUser(user: User): string {
+  return \`Hei, \${user.name}!\`;
+}</code></pre>
+        <p style="color: var(--text-muted); margin-top: 1rem;">
+          Interfaces definerer "contracts" for objekter. <code>?</code> gjør properties optional.
+        </p>
+      `;
+    });
+  }
+  
+  // Generics demo
+  if (genericsBtn) {
+    genericsBtn.addEventListener('click', () => {
+      output.innerHTML = `
+        <p><strong>TypeScript Generics:</strong></p>
+        <pre style="background: var(--bg-tertiary); padding: 1rem; border-radius: 8px; overflow-x: auto;"><code>// Generic function
+function identity&lt;T&gt;(value: T): T {
+  return value;
+}
+
+// Bruk med ulike typer
+const num = identity&lt;number&gt;(42);
+const str = identity&lt;string&gt;("hello");
+
+// Generic interface
+interface Box&lt;T&gt; {
+  value: T;
+}
+
+const numberBox: Box&lt;number&gt; = { value: 123 };
+const stringBox: Box&lt;string&gt; = { value: "hello" };</code></pre>
+        <p style="color: var(--text-muted); margin-top: 1rem;">
+          Generics lar deg lage gjenbrukbare komponenter som fungerer med flere typer.
+        </p>
+      `;
+    });
+  }
+}
+
+/**
+ * ==========================================
+ * TAILWIND DEMO
+ * ==========================================
+ */
+
+function initTailwindDemo() {
+  const layoutBtn = document.getElementById('twLayoutBtn');
+  const colorsBtn = document.getElementById('twColorsBtn');
+  const responsiveBtn = document.getElementById('twResponsiveBtn');
+  const output = document.getElementById('twOutput');
+  
+  if (!output) return;
+  
+  // Layout demo
+  if (layoutBtn) {
+    layoutBtn.addEventListener('click', () => {
+      output.innerHTML = `
+        <p><strong>Tailwind Layout Classes:</strong></p>
+        <pre style="background: var(--bg-tertiary); padding: 1rem; border-radius: 8px; overflow-x: auto;"><code>&lt;div class="flex items-center justify-center gap-4"&gt;
+  &lt;div class="p-4 bg-blue-500"&gt;Box 1&lt;/div&gt;
+  &lt;div class="p-4 bg-green-500"&gt;Box 2&lt;/div&gt;
+  &lt;div class="p-4 bg-red-500"&gt;Box 3&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 1rem; padding: 1.5rem; background: var(--bg-tertiary); border-radius: 8px;">
+          <div style="padding: 1rem; background: #3b82f6; color: white; border-radius: 8px; font-weight: bold;">Box 1</div>
+          <div style="padding: 1rem; background: #10b981; color: white; border-radius: 8px; font-weight: bold;">Box 2</div>
+          <div style="padding: 1rem; background: #ef4444; color: white; border-radius: 8px; font-weight: bold;">Box 3</div>
+        </div>
+        <p style="color: var(--text-muted); margin-top: 1rem;">
+          Tailwind bruker utility classes direkte i HTML. <code>flex</code>, <code>items-center</code>, <code>gap-4</code> etc.
+        </p>
+      `;
+    });
+  }
+  
+  // Colors demo
+  if (colorsBtn) {
+    colorsBtn.addEventListener('click', () => {
+      output.innerHTML = `
+        <p><strong>Tailwind Color System:</strong></p>
+        <pre style="background: var(--bg-tertiary); padding: 1rem; border-radius: 8px; overflow-x: auto;"><code>&lt;button class="bg-blue-500 hover:bg-blue-700 text-white"&gt;
+  Click me
+&lt;/button&gt;
+
+&lt;div class="text-gray-600 bg-gray-100"&gt;
+  Gray text on gray background
+&lt;/div&gt;</code></pre>
+        <div style="display: grid; gap: 1rem; margin-top: 1rem;">
+          <button style="padding: 0.75rem 1.5rem; background: #3b82f6; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: background 0.2s;" onmouseover="this.style.background='#1d4ed8'" onmouseout="this.style.background='#3b82f6'">Hover Me!</button>
+          <div style="padding: 1rem; background: #f3f4f6; color: #4b5563; border-radius: 8px;">Gray text on gray background</div>
+        </div>
+        <p style="color: var(--text-muted); margin-top: 1rem;">
+          Tailwind har et komplett farge-system: <code>blue-500</code>, <code>red-600</code>, etc. 
+          <code>hover:</code> prefix for hover states.
+        </p>
+      `;
+    });
+  }
+  
+  // Responsive demo
+  if (responsiveBtn) {
+    responsiveBtn.addEventListener('click', () => {
+      output.innerHTML = `
+        <p><strong>Tailwind Responsive Design:</strong></p>
+        <pre style="background: var(--bg-tertiary); padding: 1rem; border-radius: 8px; overflow-x: auto;"><code>&lt;div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"&gt;
+  &lt;div&gt;Item 1&lt;/div&gt;
+  &lt;div&gt;Item 2&lt;/div&gt;
+  &lt;div&gt;Item 3&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p class="text-sm md:text-base lg:text-lg"&gt;
+  Responsive text
+&lt;/p&gt;</code></pre>
+        <p style="color: var(--text-muted); margin-top: 1rem;">
+          Responsive prefixes: <code>sm:</code> (640px+), <code>md:</code> (768px+), <code>lg:</code> (1024px+), <code>xl:</code> (1280px+)
+        </p>
+        <div style="margin-top: 1rem; padding: 1rem; background: rgba(6, 182, 212, 0.1); border-radius: 8px; border-left: 4px solid var(--secondary-color);">
+          <p style="margin: 0;"><strong>💡 Mobile First:</strong> Styles uten prefix gjelder mobil. Legg til <code>md:</code> for tablet, <code>lg:</code> for desktop.</p>
+        </div>
+      `;
+    });
+  }
+}
+

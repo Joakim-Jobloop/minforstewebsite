@@ -217,7 +217,7 @@ Dette prosjektet er laget for læring og kan brukes fritt.
 
 ## 👨‍💻 Forfatter
 
-**[Ditt Navn]**
+**[Marcus]**
 
 - GitHub: [@Marcus-Kodehode](https://github.com/Marcus-Kodehode)
 - Website: [MoBo Digital](https://mobodigital.vercel.app/)

@@ -323,6 +323,11 @@
               <button class="tab-btn active" data-tab="html">HTML</button>
               <button class="tab-btn" data-tab="css">CSS</button>
               <button class="tab-btn" data-tab="editor">✨ Code Editor</button>
+              <button class="tab-btn" data-tab="react">⚛️ React</button>
+              <button class="tab-btn" data-tab="typescript">📘 TypeScript</button>
+              <button class="tab-btn" data-tab="tailwind">🎨 Tailwind</button>
+              <button class="tab-btn" data-tab="nodejs">🟢 Node.js</button>
+              <button class="tab-btn" data-tab="api">🌐 API</button>
               <button class="tab-btn" data-tab="variables">Variabler</button>
               <button class="tab-btn" data-tab="functions">Funksjoner</button>
               <button class="tab-btn" data-tab="arrays">Arrays</button>
@@ -448,6 +453,91 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 <div class="demo-output" id="cssOutput">
                   <p style="color: var(--text-muted);">Klikk på en knapp for å se CSS i aksjon!</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-content" id="react-tab">
+              <div class="playground-demo">
+                <h3>⚛️ React Basics</h3>
+                <p>React er et JavaScript library for å bygge brukergrensesnitt.</p>
+                
+                <div class="demo-controls">
+                  <button class="btn btn-primary" id="reactComponentBtn">Component</button>
+                  <button class="btn btn-secondary" id="reactStateBtn">useState</button>
+                  <button class="btn btn-accent" id="reactEffectBtn">useEffect</button>
+                </div>
+                
+                <div class="demo-output" id="reactOutput">
+                  <p style="color: var(--text-muted);">Klikk på en knapp for å se React eksempler!</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-content" id="typescript-tab">
+              <div class="playground-demo">
+                <h3>📘 TypeScript Basics</h3>
+                <p>TypeScript er JavaScript med type safety.</p>
+                
+                <div class="demo-controls">
+                  <button class="btn btn-primary" id="tsTypesBtn">Types</button>
+                  <button class="btn btn-secondary" id="tsInterfaceBtn">Interface</button>
+                  <button class="btn btn-accent" id="tsGenericsBtn">Generics</button>
+                </div>
+                
+                <div class="demo-output" id="tsOutput">
+                  <p style="color: var(--text-muted);">Klikk på en knapp for å se TypeScript eksempler!</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-content" id="tailwind-tab">
+              <div class="playground-demo">
+                <h3>🎨 Tailwind CSS</h3>
+                <p>Tailwind er et utility-first CSS framework.</p>
+                
+                <div class="demo-controls">
+                  <button class="btn btn-primary" id="twLayoutBtn">Layout</button>
+                  <button class="btn btn-secondary" id="twColorsBtn">Colors</button>
+                  <button class="btn btn-accent" id="twResponsiveBtn">Responsive</button>
+                </div>
+                
+                <div class="demo-output" id="twOutput">
+                  <p style="color: var(--text-muted);">Klikk på en knapp for å se Tailwind eksempler!</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-content" id="nodejs-tab">
+              <div class="playground-demo">
+                <h3>🟢 Node.js Basics</h3>
+                <p>Node.js lar deg kjøre JavaScript på serveren.</p>
+                
+                <div class="demo-controls">
+                  <button class="btn btn-primary" id="nodeModulesBtn">Modules</button>
+                  <button class="btn btn-secondary" id="nodeExpressBtn">Express</button>
+                  <button class="btn btn-accent" id="nodeFsBtn">File System</button>
+                </div>
+                
+                <div class="demo-output" id="nodeOutput">
+                  <p style="color: var(--text-muted);">Klikk på en knapp for å se Node.js eksempler!</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-content" id="api-tab">
+              <div class="playground-demo">
+                <h3>🌐 API & REST</h3>
+                <p>Lær hvordan du jobber med APIs og REST endpoints.</p>
+                
+                <div class="demo-controls">
+                  <button class="btn btn-primary" id="apiGetBtn">GET Request</button>
+                  <button class="btn btn-secondary" id="apiPostBtn">POST Request</button>
+                  <button class="btn btn-accent" id="apiErrorBtn">Error Handling</button>
+                </div>
+                
+                <div class="demo-output" id="apiOutput">
+                  <p style="color: var(--text-muted);">Klikk på en knapp for å se API eksempler!</p>
                 </div>
               </div>
             </div>
@@ -595,6 +685,74 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 
                 <div class="demo-output" id="storageOutput"></div>
+              </div>
+            </div>
+
+            <div class="tab-content" id="react-tab">
+              <div class="playground-demo">
+                <h3>⚛️ React Basics</h3>
+                <p>React er et JavaScript library for å bygge brukergrensesnitt.</p>
+                
+                <div class="demo-controls">
+                  <button class="btn btn-primary" id="reactComponentBtn">Component</button>
+                  <button class="btn btn-secondary" id="reactStateBtn">useState</button>
+                  <button class="btn btn-accent" id="reactEffectBtn">useEffect</button>
+                </div>
+                
+                <div class="demo-output" id="reactOutput">
+                  <p style="color: var(--text-muted);">Klikk på en knapp for å se React eksempler!</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-content" id="typescript-tab">
+              <div class="playground-demo">
+                <h3>📘 TypeScript Basics</h3>
+                <p>TypeScript er JavaScript med type safety.</p>
+                
+                <div class="demo-controls">
+                  <button class="btn btn-primary" id="tsTypesBtn">Types</button>
+                  <button class="btn btn-secondary" id="tsInterfaceBtn">Interface</button>
+                  <button class="btn btn-accent" id="tsGenericsBtn">Generics</button>
+                </div>
+                
+                <div class="demo-output" id="tsOutput">
+                  <p style="color: var(--text-muted);">Klikk på en knapp for å se TypeScript eksempler!</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-content" id="vue-tab">
+              <div class="playground-demo">
+                <h3>💚 Vue.js Basics</h3>
+                <p>Vue er et progressivt framework for å bygge brukergrensesnitt.</p>
+                
+                <div class="demo-controls">
+                  <button class="btn btn-primary" id="vueTemplateBtn">Template</button>
+                  <button class="btn btn-secondary" id="vueDataBtn">Data & Methods</button>
+                  <button class="btn btn-accent" id="vueComputedBtn">Computed</button>
+                </div>
+                
+                <div class="demo-output" id="vueOutput">
+                  <p style="color: var(--text-muted);">Klikk på en knapp for å se Vue eksempler!</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-content" id="tailwind-tab">
+              <div class="playground-demo">
+                <h3>🎨 Tailwind CSS</h3>
+                <p>Tailwind er et utility-first CSS framework.</p>
+                
+                <div class="demo-controls">
+                  <button class="btn btn-primary" id="twLayoutBtn">Layout</button>
+                  <button class="btn btn-secondary" id="twColorsBtn">Colors</button>
+                  <button class="btn btn-accent" id="twResponsiveBtn">Responsive</button>
+                </div>
+                
+                <div class="demo-output" id="twOutput">
+                  <p style="color: var(--text-muted);">Klikk på en knapp for å se Tailwind eksempler!</p>
+                </div>
               </div>
             </div>
           </div>
