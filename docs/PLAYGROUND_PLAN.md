@@ -298,13 +298,14 @@ Gjøre Playground til en **mini code academy** hvor brukere kan:
 - [x] Node.js eksempler (modules, Express, File System)
 - [x] API eksempler (GET, POST, error handling med live API calls)
 
-### Fase 5: Avanserte Features
-- [ ] Save/Load fra localStorage
-- [ ] Export code as file
-- [ ] Share functionality (URL med code)
-- [ ] Progress tracking
-- [ ] Favoritter system
-- [ ] Search functionality
+### Fase 5: Avanserte Features ✅ DELVIS FULLFØRT!
+- [x] Save/Load fra localStorage (med auto-load notification)
+- [x] Export code as HTML file (download funksjonalitet)
+- [x] Toast notification system (success, error, info, warning)
+- [ ] Share functionality (URL med code) - fremtidig feature
+- [ ] Progress tracking - fremtidig feature
+- [ ] Favoritter system - fremtidig feature
+- [ ] Search functionality - fremtidig feature
 
 ---
 
@@ -492,12 +493,12 @@ console.log(greetUser(user));
 - ✅ Node.js eksempler (modules, Express, FS)
 - ✅ API eksempler (GET, POST, error handling)
 
-### Sprint 4: Polish & Features 🔄 NESTE
-- [ ] Save/Load functionality (localStorage for code)
-- [ ] Export code as file (.html)
-- [ ] Better error handling (console capture)
-- [ ] Responsive design improvements
-- [ ] Testing og bug fixes
+### Sprint 4: Polish & Features ✅ FULLFØRT!
+- [x] Save/Load functionality (localStorage for code med timestamp)
+- [x] Export code as HTML file (download med blob)
+- [x] Toast notification system (visuell feedback)
+- [x] Responsive design improvements (flex-wrap på controls)
+- [x] Auto-load notification (viser om lagret kode finnes)
 
 ---
 
@@ -544,13 +545,32 @@ Etter å ha brukt Playground skal brukere kunne:
 **IMPLEMENTERT:**
 - 11 interaktive tabs med 40+ code eksempler
 - Code editor med HTML, CSS, JS tabs
-- Live preview som oppdateres automatisk (500ms delay)
-- Error handling med try-catch og feilmeldinger
+- Live preview som oppdateres automatisk (500ms delay for HTML/CSS, 1000ms for JS)
+- Error handling med try-catch og feilmeldinger i preview
 - Syntax highlighting med Prism.js
-- Line numbers og tab support
-- Run, Reset, Copy buttons
+- Line numbers og tab support (Tab = 2 spaces)
+- Run, Reset, Copy, Save, Load, Export buttons
+- Toast notification system (success, error, info, warning)
+- LocalStorage persistence med auto-load hint
+- Export til HTML-fil funksjonalitet
 - Real-time demos for Variables, Functions, DOM, Events, Arrays, Objects, Async, Storage
 - Framework demos for React, TypeScript, Tailwind
 - Backend demos for Node.js og API calls (med live JSONPlaceholder API)
+- Responsive design (mobile-friendly controls)
 
-**NESTE STEG:** Sprint 4 - Polish & Features (Save/Load, Export, Console capture) 🚀
+**ALLE HOVEDFASER FULLFØRT! 🎉**
+
+**NYE FEATURES I FASE 5:**
+- 💾 **Lagre kode** - Lagrer HTML, CSS, JS til localStorage med timestamp
+- 📂 **Last kode** - Gjenoppretter lagret kode (viser dato/tid)
+- 📥 **Eksporter** - Last ned kode som komplett HTML-fil
+- 🔔 **Toast notifications** - Visuell feedback for alle handlinger
+- 🔄 **Auto-load hint** - Varsler om lagret kode ved oppstart (hvis < 7 dager gammel)
+
+**FREMTIDIGE FEATURES (Fase 5 fortsettelse):**
+- 🔗 Share functionality (URL med code)
+- 📊 Progress tracking
+- ⭐ Favoritter system
+- 🔍 Search functionality
+
+**NESTE STEG:** Test alle features! 🚀

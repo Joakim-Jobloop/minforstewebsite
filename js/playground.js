@@ -502,6 +502,216 @@ function initCodeEditor() {
       }
     });
   }
+  
+  // Save code to localStorage
+  const saveBtn = document.getElementById('saveCodeBtn');
+  if (saveBtn) {
+    saveBtn.addEventListener('click', () => {
+      const codeData = {
+        html: htmlCode.value,
+        css: cssCode.value,
+        js: jsCode.value,
+        timestamp: new Date().toISOString()
+      };
+      
+      localStorage.setItem('playgroundCode', JSON.stringify(codeData));
+      
+      // Visual feedback
+      saveBtn.textContent = '✓ Lagret!';
+      saveBtn.style.background = 'var(--success-color)';
+      setTimeout(() => {
+        saveBtn.textContent = '💾 Lagre';
+        saveBtn.style.background = '';
+      }, 1500);
+      
+      // Show toast notification
+      showToast('Kode lagret til localStorage! 💾', 'success');
+    });
+  }
+  
+  // Load code from localStorage
+  const loadBtn = document.getElementById('loadCodeBtn');
+  if (loadBtn) {
+    loadBtn.addEventListener('click', () => {
+      const savedData = localStorage.getItem('playgroundCode');
+      
+      if (savedData) {
+        try {
+          const codeData = JSON.parse(savedData);
+          
+          htmlCode.value = codeData.html || '';
+          cssCode.value = codeData.css || '';
+          jsCode.value = codeData.js || '';
+          
+          // Update line numbers
+          updateLineNumbers(htmlCode, document.getElementById('html-line-numbers'));
+          updateLineNumbers(cssCode, document.getElementById('css-line-numbers'));
+          updateLineNumbers(jsCode, document.getElementById('js-line-numbers'));
+          
+          // Update preview
+          updateLivePreview();
+          
+          // Visual feedback
+          loadBtn.textContent = '✓ Lastet!';
+          loadBtn.style.background = 'var(--success-color)';
+          setTimeout(() => {
+            loadBtn.textContent = '📂 Last';
+            loadBtn.style.background = '';
+          }, 1500);
+          
+          const date = new Date(codeData.timestamp);
+          showToast(`Kode lastet fra ${date.toLocaleDateString('no-NO')} ${date.toLocaleTimeString('no-NO')} 📂`, 'success');
+        } catch (error) {
+          showToast('Feil ved lasting av kode! ❌', 'error');
+        }
+      } else {
+        showToast('Ingen lagret kode funnet! 📭', 'info');
+      }
+    });
+  }
+  
+  // Export code as HTML file
+  const exportBtn = document.getElementById('exportCodeBtn');
+  if (exportBtn) {
+    exportBtn.addEventListener('click', () => {
+      const html = htmlCode.value;
+      const css = `<style>${cssCode.value}</style>`;
+      const js = `<script>${jsCode.value}<\/script>`;
+      
+      const fullCode = `<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Min Kode - Playground Export</title>
+  ${css}
+</head>
+<body>
+  ${html}
+  ${js}
+</body>
+</html>`;
+      
+      // Create blob and download
+      const blob = new Blob([fullCode], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `playground-${Date.now()}.html`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      
+      // Visual feedback
+      exportBtn.textContent = '✓ Eksportert!';
+      exportBtn.style.background = 'var(--success-color)';
+      setTimeout(() => {
+        exportBtn.textContent = '📥 Eksporter';
+        exportBtn.style.background = '';
+      }, 1500);
+      
+      showToast('Kode eksportert som HTML fil! 📥', 'success');
+    });
+  }
+  
+  // Auto-load saved code on init
+  const savedData = localStorage.getItem('playgroundCode');
+  if (savedData) {
+    try {
+      const codeData = JSON.parse(savedData);
+      // Only auto-load if it's recent (within last 7 days)
+      const savedDate = new Date(codeData.timestamp);
+      const daysSince = (Date.now() - savedDate.getTime()) / (1000 * 60 * 60 * 24);
+      
+      if (daysSince < 7) {
+        // Show subtle notification that saved code is available
+        setTimeout(() => {
+          showToast('💡 Du har lagret kode. Klikk "Last" for å gjenopprette.', 'info');
+        }, 2000);
+      }
+    } catch (error) {
+      console.error('Error checking saved code:', error);
+    }
+  }
+}
+
+/**
+ * ==========================================
+ * TOAST NOTIFICATION SYSTEM
+ * ==========================================
+ */
+
+/**
+ * Shows a toast notification
+ * @param {string} message - Message to display
+ * @param {string} type - Type: 'success', 'error', 'info', 'warning'
+ */
+function showToast(message, type = 'info') {
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  toast.textContent = message;
+  
+  const colors = {
+    success: 'var(--success-color)',
+    error: 'var(--error-color)',
+    info: 'var(--secondary-color)',
+    warning: 'var(--warning-color)'
+  };
+  
+  toast.style.cssText = `
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: ${colors[type] || colors.info};
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow-xl);
+    z-index: 10000;
+    animation: slideInRight 0.3s ease-out;
+    font-weight: 500;
+    max-width: 400px;
+  `;
+  
+  document.body.appendChild(toast);
+  
+  // Remove after 3 seconds
+  setTimeout(() => {
+    toast.style.animation = 'slideOutRight 0.3s ease-out';
+    setTimeout(() => {
+      toast.remove();
+    }, 300);
+  }, 3000);
+}
+
+// Add toast animations if not already present
+if (!document.getElementById('toast-styles')) {
+  const style = document.createElement('style');
+  style.id = 'toast-styles';
+  style.textContent = `
+    @keyframes slideInRight {
+      from {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    @keyframes slideOutRight {
+      from {
+        transform: translateX(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+    }
+  `;
+  document.head.appendChild(style);
 }
 
 /**
