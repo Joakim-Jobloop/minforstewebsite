@@ -258,6 +258,142 @@ code {
   }
 }
 
+/* ==================== */
+/* CODE EDITOR */
+/* ==================== */
+
+.editor-container {
+  margin-top: var(--space-6);
+}
+
+/**
+ * Editor tabs
+ */
+.editor-tabs {
+  display: flex;
+  gap: var(--space-1);
+  background-color: var(--bg-primary);
+  padding: var(--space-2);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.editor-tab-btn {
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  transition: all var(--transition-base);
+}
+
+.editor-tab-btn:hover {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.editor-tab-btn.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/**
+ * Code editor wrapper
+ */
+.code-editor-wrapper {
+  position: relative;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+}
+
+.code-editor {
+  display: none;
+  position: relative;
+}
+
+.code-editor.active {
+  display: flex;
+}
+
+/**
+ * Line numbers
+ */
+.line-numbers {
+  background-color: var(--bg-tertiary);
+  color: var(--text-muted);
+  padding: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  text-align: right;
+  user-select: none;
+  min-width: 50px;
+  border-right: 1px solid var(--border-color);
+}
+
+/**
+ * Code input
+ */
+.code-input {
+  flex: 1;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: none;
+  padding: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  resize: none;
+  outline: none;
+  min-height: 300px;
+  white-space: pre;
+  overflow-wrap: normal;
+  overflow-x: auto;
+}
+
+.code-input::placeholder {
+  color: var(--text-muted);
+}
+
+/**
+ * Editor controls
+ */
+.editor-controls {
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  background-color: var(--bg-tertiary);
+  border-top: 1px solid var(--border-color);
+}
+
+/**
+ * Code preview
+ */
+.code-preview {
+  margin-top: var(--space-4);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.preview-header {
+  background-color: var(--bg-tertiary);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+#preview-frame {
+  width: 100%;
+  min-height: 400px;
+  border: none;
+  background-color: white;
+}
+
 /**
  * ============================================
  * SLUTT PÅ PLAYGROUND SECTION.CSS

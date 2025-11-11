@@ -26,6 +26,7 @@ export function initPlayground() {
   initTabs();
   initHTMLDemo();
   initCSSDemo();
+  initCodeEditor();
   initVariablesDemo();
   initFunctionsDemo();
   initArraysDemo();
@@ -266,6 +267,140 @@ function initCSSDemo() {
           CSS animations gjør nettsider levende med smooth bevegelser!
         </p>
       `;
+    });
+  }
+}
+
+/**
+ * ==========================================
+ * CODE EDITOR
+ * ==========================================
+ */
+
+function initCodeEditor() {
+  const editorTabBtns = document.querySelectorAll('.editor-tab-btn');
+  const codeEditors = document.querySelectorAll('.code-editor');
+  const htmlCode = document.getElementById('html-code');
+  const cssCode = document.getElementById('css-code');
+  const jsCode = document.getElementById('js-code');
+  const runBtn = document.getElementById('runCodeBtn');
+  const resetBtn = document.getElementById('resetCodeBtn');
+  const copyBtn = document.getElementById('copyCodeBtn');
+  const previewFrame = document.getElementById('preview-frame');
+  
+  if (!htmlCode) return;
+  
+  // Default code
+  const defaultCode = {
+    html: htmlCode.value,
+    css: cssCode.value,
+    js: jsCode.value
+  };
+  
+  // Editor tabs switching
+  editorTabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const lang = btn.getAttribute('data-lang');
+      
+      // Update active states
+      editorTabBtns.forEach(b => b.classList.remove('active'));
+      codeEditors.forEach(e => e.classList.remove('active'));
+      
+      btn.classList.add('active');
+      document.getElementById(`${lang}-editor`).classList.add('active');
+    });
+  });
+  
+  // Update line numbers
+  function updateLineNumbers(textarea, lineNumbersEl) {
+    const lines = textarea.value.split('\n').length;
+    lineNumbersEl.innerHTML = Array.from({length: lines}, (_, i) => i + 1).join('\n');
+  }
+  
+  // Initialize line numbers
+  updateLineNumbers(htmlCode, document.getElementById('html-line-numbers'));
+  updateLineNumbers(cssCode, document.getElementById('css-line-numbers'));
+  updateLineNumbers(jsCode, document.getElementById('js-line-numbers'));
+  
+  // Update line numbers on input
+  htmlCode.addEventListener('input', () => updateLineNumbers(htmlCode, document.getElementById('html-line-numbers')));
+  cssCode.addEventListener('input', () => updateLineNumbers(cssCode, document.getElementById('css-line-numbers')));
+  jsCode.addEventListener('input', () => updateLineNumbers(jsCode, document.getElementById('js-line-numbers')));
+  
+  // Tab key support (insert 2 spaces)
+  [htmlCode, cssCode, jsCode].forEach(textarea => {
+    textarea.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') {
+        e.preventDefault();
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        textarea.value = textarea.value.substring(0, start) + '  ' + textarea.value.substring(end);
+        textarea.selectionStart = textarea.selectionEnd = start + 2;
+      }
+    });
+  });
+  
+  // Run code
+  if (runBtn) {
+    runBtn.addEventListener('click', () => {
+      const html = htmlCode.value;
+      const css = `<style>${cssCode.value}</style>`;
+      const js = `<script>${jsCode.value}<\/script>`;
+      
+      const fullCode = html + css + js;
+      
+      // Update iframe
+      const iframe = previewFrame.contentDocument || previewFrame.contentWindow.document;
+      iframe.open();
+      iframe.write(fullCode);
+      iframe.close();
+      
+      // Visual feedback
+      runBtn.textContent = '✓ Kjørt!';
+      runBtn.style.background = 'var(--success-color)';
+      setTimeout(() => {
+        runBtn.textContent = '▶ Kjør Kode';
+        runBtn.style.background = '';
+      }, 1500);
+    });
+  }
+  
+  // Reset code
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      if (confirm('Er du sikker på at du vil resette koden?')) {
+        htmlCode.value = defaultCode.html;
+        cssCode.value = defaultCode.css;
+        jsCode.value = defaultCode.js;
+        
+        updateLineNumbers(htmlCode, document.getElementById('html-line-numbers'));
+        updateLineNumbers(cssCode, document.getElementById('css-line-numbers'));
+        updateLineNumbers(jsCode, document.getElementById('js-line-numbers'));
+        
+        // Clear preview
+        const iframe = previewFrame.contentDocument || previewFrame.contentWindow.document;
+        iframe.open();
+        iframe.write('');
+        iframe.close();
+      }
+    });
+  }
+  
+  // Copy code
+  if (copyBtn) {
+    copyBtn.addEventListener('click', () => {
+      // Find active editor
+      const activeEditor = document.querySelector('.code-editor.active textarea');
+      if (activeEditor) {
+        activeEditor.select();
+        document.execCommand('copy');
+        
+        // Visual feedback
+        copyBtn.textContent = '✓ Kopiert!';
+        setTimeout(() => {
+          copyBtn.textContent = '📋 Kopier';
+        }, 1500);
+      }
     });
   }
 }
@@ -832,6 +967,7 @@ console.log(data);  // "${data}"</code></pre>
  * ✅ Tabs system
  * ✅ HTML demo (semantic tags, forms, lists)
  * ✅ CSS demo (flexbox, grid, animations)
+ * ✅ Code Editor (HTML, CSS, JS med live preview)
  * ✅ Variables demo (input og output)
  * ✅ Functions demo (matematikk)
  * ✅ Arrays demo (map, filter, reduce)

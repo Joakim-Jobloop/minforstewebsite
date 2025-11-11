@@ -322,6 +322,7 @@
             <div class="tabs">
               <button class="tab-btn active" data-tab="html">HTML</button>
               <button class="tab-btn" data-tab="css">CSS</button>
+              <button class="tab-btn" data-tab="editor">✨ Code Editor</button>
               <button class="tab-btn" data-tab="variables">Variabler</button>
               <button class="tab-btn" data-tab="functions">Funksjoner</button>
               <button class="tab-btn" data-tab="arrays">Arrays</button>
@@ -346,6 +347,90 @@
                 
                 <div class="demo-output" id="htmlOutput">
                   <p style="color: var(--text-muted);">Klikk på en knapp for å se HTML eksempler!</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-content" id="editor-tab">
+              <div class="playground-demo">
+                <h3>Code Editor</h3>
+                <p>Skriv og kjør din egen HTML, CSS og JavaScript kode!</p>
+                
+                <div class="editor-container">
+                  <!-- Editor tabs -->
+                  <div class="editor-tabs">
+                    <button class="editor-tab-btn active" data-lang="html">HTML</button>
+                    <button class="editor-tab-btn" data-lang="css">CSS</button>
+                    <button class="editor-tab-btn" data-lang="javascript">JavaScript</button>
+                  </div>
+                  
+                  <!-- Code editors -->
+                  <div class="code-editor-wrapper">
+                    <div class="code-editor active" id="html-editor">
+                      <div class="line-numbers" id="html-line-numbers"></div>
+                      <textarea 
+                        id="html-code" 
+                        class="code-input" 
+                        spellcheck="false"
+                        placeholder="Skriv HTML her..."><!DOCTYPE html>
+<html>
+<head>
+  <title>Min Side</title>
+</head>
+<body>
+  <h1>Hei, verden!</h1>
+  <p>Dette er min første nettside.</p>
+</body>
+</html></textarea>
+                    </div>
+                    
+                    <div class="code-editor" id="css-editor">
+                      <div class="line-numbers" id="css-line-numbers"></div>
+                      <textarea 
+                        id="css-code" 
+                        class="code-input" 
+                        spellcheck="false"
+                        placeholder="Skriv CSS her...">body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 2rem;
+}
+
+h1 {
+  color: #ffd700;
+}</textarea>
+                    </div>
+                    
+                    <div class="code-editor" id="js-editor">
+                      <div class="line-numbers" id="js-line-numbers"></div>
+                      <textarea 
+                        id="js-code" 
+                        class="code-input" 
+                        spellcheck="false"
+                        placeholder="Skriv JavaScript her...">// Skriv JavaScript her
+console.log('Hei fra JavaScript!');
+
+document.addEventListener('DOMContentLoaded', () => {
+  alert('Siden er lastet!');
+});</textarea>
+                    </div>
+                  </div>
+                  
+                  <!-- Controls -->
+                  <div class="editor-controls">
+                    <button class="btn btn-primary" id="runCodeBtn">▶ Kjør Kode</button>
+                    <button class="btn btn-secondary" id="resetCodeBtn">↻ Reset</button>
+                    <button class="btn btn-ghost" id="copyCodeBtn">📋 Kopier</button>
+                  </div>
+                  
+                  <!-- Preview -->
+                  <div class="code-preview">
+                    <div class="preview-header">
+                      <span>Preview:</span>
+                    </div>
+                    <iframe id="preview-frame" sandbox="allow-scripts"></iframe>
+                  </div>
                 </div>
               </div>
             </div>

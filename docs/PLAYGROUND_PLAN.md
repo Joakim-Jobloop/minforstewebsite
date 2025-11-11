@@ -276,12 +276,14 @@ Gjøre Playground til en **mini code academy** hvor brukere kan:
 - [x] Legge til LocalStorage eksempler (save, load, clear)
 - [x] Forbedre tabs UI (gradient, scrollbar, responsive)
 
-### Fase 2: Code Editor
-- [ ] Implementere enkel code editor (textarea med styling)
-- [ ] Legge til syntax highlighting (Prism.js eller highlight.js)
-- [ ] Legge til line numbers
-- [ ] Legge til auto-indent
-- [ ] Legge til tab support
+### Fase 2: Code Editor 🔄
+- [x] Implementere enkel code editor (textarea med styling)
+- [x] Legge til syntax highlighting (Prism.js CDN)
+- [x] Legge til line numbers
+- [x] Legge til tab support (Tab key = 2 spaces)
+- [x] Run button for å kjøre kode
+- [ ] Live preview (iframe) - neste
+- [ ] Error handling - neste
 
 ### Fase 3: Live Preview
 - [ ] Implementere iframe for HTML/CSS/JS preview
