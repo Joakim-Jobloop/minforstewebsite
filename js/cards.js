@@ -11,13 +11,6 @@ const data = await fetchPeople();
 console.log(data);
 
 data.map((person) => {
-  //   const card = document.createElement("div");
-  //   card.classList.add("card");
-  //   card.innerHTML = `<h2 class="cardHeading">${person.name}</h2>
-  //   <p>Age: ${person.age}</p>
-  //   <p>Gender: ${person.isMale ? "Male" : "Female"}</p>
-  //   <p>Hobbies: ${person.hobbies.join(", ")}</p>`;
-  //   cardContainer.appendChild(card);
   cardTemplate(person);
 });
 
