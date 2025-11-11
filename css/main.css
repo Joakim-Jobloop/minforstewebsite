@@ -1,8 +1,46 @@
+/**
+ * ============================================
+ * MAIN.CSS
+ * ============================================
+ * Plassering: /css/main.css
+ * 
+ * Dette er hovedfilen for all CSS.
+ * Her importerer vi alle andre CSS filer i riktig rekkefølge.
+ * 
+ * Rekkefølgen er viktig:
+ * 1. Variables (variabler må defineres først)
+ * 2. Base (grunnleggende styling)
+ * 3. Utilities (hjelpeklasser)
+ * 4. Components (gjenbrukbare komponenter)
+ * 5. Sections (spesifikke seksjoner)
+ */
+
+/* ==================== */
+/* 1. VARIABLES & BASE */
+/* ==================== */
+@import url("variables.css");
 @import url("base.css");
-@import url("header.css");
-@import url("./sections/heroSection.css");
+
+/* ==================== */
+/* 2. UTILITIES */
+/* ==================== */
+@import url("./utils/utilities.css");
 @import url("./utils/scrollToTopButton.css");
+
+/* ==================== */
+/* 3. LAYOUT */
+/* ==================== */
+@import url("header.css");
+
+/* ==================== */
+/* 4. COMPONENTS */
+/* ==================== */
 @import url("./components/cards.css");
+
+/* ==================== */
+/* 5. SECTIONS */
+/* ==================== */
+@import url("./sections/heroSection.css");
 
 main {
   padding-inline: 24px;

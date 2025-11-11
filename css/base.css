@@ -1,24 +1,276 @@
-* {
+/**
+ * ============================================
+ * BASE.CSS
+ * ============================================
+ * Plassering: /css/base.css
+ * 
+ * Dette er grunnstilen for hele nettsiden.
+ * Her setter vi opp:
+ * - CSS Reset (fjerner browser defaults)
+ * - Grunnleggende styling for HTML elementer
+ * - Typografi (fonter og tekststørrelser)
+ * - Globale styles som gjelder overalt
+ * 
+ * Denne filen importeres først i main.css
+ */
+
+/* ==================== */
+/* CSS RESET */
+/* ==================== */
+
+/**
+ * Universal selector (*) velger ALLE elementer.
+ * Her fjerner vi standard margin og padding fra alle elementer,
+ * og setter box-sizing til border-box (gjør det enklere å regne ut størrelser)
+ */
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  box-sizing: border-box; /* Padding og border inkluderes i width/height */
 }
 
-:root {
-  --primary-color: #6b7fd7;
-  --white-color: #f1ecd8;
-  --black-color: #202030;
-  --accent-color: #e83151;
-}
+/* ==================== */
+/* HTML & BODY */
+/* ==================== */
 
+/**
+ * HTML element - Root element
+ * scroll-behavior: smooth gjør at all scrolling blir animert
+ */
 html {
   scroll-behavior: smooth;
+  font-size: 16px; /* 1rem = 16px */
+  -webkit-font-smoothing: antialiased; /* Bedre font rendering på Mac */
+  -moz-osx-font-smoothing: grayscale;
 }
 
+/**
+ * Body element - Hovedcontainer for alt innhold
+ * Her setter vi bakgrunnsfarge, tekstfarge og font
+ */
 body {
-  /* display: grid;
-  justify-content: center; */
-  background-color: var(--black-color);
-  color: var(--white-color);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  min-height: 100vh; /* Minimum høyde = hele viewport */
+  overflow-x: hidden; /* Forhindrer horisontal scrolling */
 }
+
+/* ==================== */
+/* TYPOGRAFI */
+/* ==================== */
+
+/**
+ * Headings (overskrifter) - h1 til h6
+ * Bruker egen font og spacing
+ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: var(--font-bold);
+  line-height: var(--leading-tight);
+  color: var(--text-primary);
+  margin-bottom: var(--space-4);
+}
+
+/* Individuelle størrelser for hver heading */
+h1 {
+  font-size: var(--text-5xl); /* 48px */
+}
+
+h2 {
+  font-size: var(--text-4xl); /* 36px */
+}
+
+h3 {
+  font-size: var(--text-3xl); /* 30px */
+}
+
+h4 {
+  font-size: var(--text-2xl); /* 24px */
+}
+
+h5 {
+  font-size: var(--text-xl); /* 20px */
+}
+
+h6 {
+  font-size: var(--text-lg); /* 18px */
+}
+
+/**
+ * Paragraphs (avsnitt)
+ * Legger til spacing mellom avsnitt
+ */
+p {
+  margin-bottom: var(--space-4);
+  color: var(--text-secondary);
+}
+
+/**
+ * Links (lenker)
+ * Fjerner underline og setter farge
+ */
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color var(--transition-base) var(--ease-out);
+}
+
+a:hover {
+  color: var(--primary-hover);
+}
+
+a:focus {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* ==================== */
+/* LISTER */
+/* ==================== */
+
+/**
+ * Lists (lister)
+ * Fjerner default styling
+ */
+ul, ol {
+  list-style: none;
+}
+
+/* ==================== */
+/* BILDER & MEDIA */
+/* ==================== */
+
+/**
+ * Images (bilder)
+ * Gjør bilder responsive og forhindrer layout shift
+ */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* ==================== */
+/* FORMS */
+/* ==================== */
+
+/**
+ * Form elements (skjema elementer)
+ * Arver font fra body
+ */
+input, button, textarea, select {
+  font: inherit;
+  color: inherit;
+}
+
+/**
+ * Buttons (knapper)
+ * Fjerner default styling og setter cursor
+ */
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* ==================== */
+/* UTILITY CLASSES */
+/* ==================== */
+
+/**
+ * Screen reader only - Skjuler visuelt men tilgjengelig for skjermlesere
+ * Viktig for accessibility!
+ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/**
+ * Skip to main content - For keyboard navigation
+ * Lar brukere hoppe over navigasjon
+ */
+.skip-to-main {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  background: var(--primary-color);
+  color: white;
+  padding: var(--space-4);
+  z-index: var(--z-tooltip);
+  transition: top var(--transition-base);
+}
+
+.skip-to-main:focus {
+  top: 0;
+}
+
+/* ==================== */
+/* SELECTION */
+/* ==================== */
+
+/**
+ * Text selection styling
+ * Endrer farge når bruker markerer tekst
+ */
+::selection {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+::-moz-selection {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* ==================== */
+/* SCROLLBAR */
+/* ==================== */
+
+/**
+ * Custom scrollbar (kun Webkit browsers: Chrome, Safari, Edge)
+ * Gir en penere scrollbar som matcher designet
+ */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
+}
+
+/**
+ * ============================================
+ * SLUTT PÅ BASE.CSS
+ * ============================================
+ * 
+ * Nå har vi et solid grunnlag for resten av stylingen.
+ * Alle elementer har konsistent styling og oppfører seg
+ * forutsigbart på tvers av ulike browsere.
+ */

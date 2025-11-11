@@ -1,0 +1,308 @@
+/**
+ * ============================================
+ * UTILITIES.CSS
+ * ============================================
+ * Plassering: /css/utils/utilities.css
+ * 
+ * Dette er en samling av hjelpeklasser (utility classes)
+ * som kan brukes direkte i HTML for rask styling.
+ * 
+ * Eksempel: <div class="flex gap-4 p-6">
+ * 
+ * Disse klassene følger "utility-first" prinsippet,
+ * som gjør det enkelt å style elementer uten å skrive
+ * custom CSS hver gang.
+ */
+
+/* ==================== */
+/* DISPLAY */
+/* ==================== */
+
+.block { display: block; }
+.inline-block { display: inline-block; }
+.inline { display: inline; }
+.flex { display: flex; }
+.inline-flex { display: inline-flex; }
+.grid { display: grid; }
+.hidden { display: none; }
+
+/* ==================== */
+/* FLEXBOX */
+/* ==================== */
+
+/* Flex direction - Retning på flex items */
+.flex-row { flex-direction: row; }
+.flex-col { flex-direction: column; }
+.flex-row-reverse { flex-direction: row-reverse; }
+.flex-col-reverse { flex-direction: column-reverse; }
+
+/* Flex wrap - Om items skal wrappe til neste linje */
+.flex-wrap { flex-wrap: wrap; }
+.flex-nowrap { flex-wrap: nowrap; }
+
+/* Justify content - Horisontal alignment */
+.justify-start { justify-content: flex-start; }
+.justify-end { justify-content: flex-end; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.justify-around { justify-content: space-around; }
+.justify-evenly { justify-content: space-evenly; }
+
+/* Align items - Vertikal alignment */
+.items-start { align-items: flex-start; }
+.items-end { align-items: flex-end; }
+.items-center { align-items: center; }
+.items-baseline { align-items: baseline; }
+.items-stretch { align-items: stretch; }
+
+/* Gap - Spacing mellom flex/grid items */
+.gap-1 { gap: var(--space-1); }
+.gap-2 { gap: var(--space-2); }
+.gap-3 { gap: var(--space-3); }
+.gap-4 { gap: var(--space-4); }
+.gap-6 { gap: var(--space-6); }
+.gap-8 { gap: var(--space-8); }
+.gap-12 { gap: var(--space-12); }
+
+/* ==================== */
+/* GRID */
+/* ==================== */
+
+/* Grid columns - Antall kolonner */
+.grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+.grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+/* ==================== */
+/* SPACING - PADDING */
+/* ==================== */
+
+/* Padding all sides */
+.p-0 { padding: 0; }
+.p-1 { padding: var(--space-1); }
+.p-2 { padding: var(--space-2); }
+.p-3 { padding: var(--space-3); }
+.p-4 { padding: var(--space-4); }
+.p-6 { padding: var(--space-6); }
+.p-8 { padding: var(--space-8); }
+.p-12 { padding: var(--space-12); }
+
+/* Padding horizontal (left + right) */
+.px-2 { padding-left: var(--space-2); padding-right: var(--space-2); }
+.px-4 { padding-left: var(--space-4); padding-right: var(--space-4); }
+.px-6 { padding-left: var(--space-6); padding-right: var(--space-6); }
+.px-8 { padding-left: var(--space-8); padding-right: var(--space-8); }
+
+/* Padding vertical (top + bottom) */
+.py-2 { padding-top: var(--space-2); padding-bottom: var(--space-2); }
+.py-4 { padding-top: var(--space-4); padding-bottom: var(--space-4); }
+.py-6 { padding-top: var(--space-6); padding-bottom: var(--space-6); }
+.py-8 { padding-top: var(--space-8); padding-bottom: var(--space-8); }
+
+/* ==================== */
+/* SPACING - MARGIN */
+/* ==================== */
+
+/* Margin all sides */
+.m-0 { margin: 0; }
+.m-1 { margin: var(--space-1); }
+.m-2 { margin: var(--space-2); }
+.m-4 { margin: var(--space-4); }
+.m-6 { margin: var(--space-6); }
+.m-8 { margin: var(--space-8); }
+
+/* Margin auto - For sentrering */
+.mx-auto { margin-left: auto; margin-right: auto; }
+
+/* Margin horizontal */
+.mx-2 { margin-left: var(--space-2); margin-right: var(--space-2); }
+.mx-4 { margin-left: var(--space-4); margin-right: var(--space-4); }
+
+/* Margin vertical */
+.my-2 { margin-top: var(--space-2); margin-bottom: var(--space-2); }
+.my-4 { margin-top: var(--space-4); margin-bottom: var(--space-4); }
+.my-8 { margin-top: var(--space-8); margin-bottom: var(--space-8); }
+
+/* Margin bottom */
+.mb-2 { margin-bottom: var(--space-2); }
+.mb-4 { margin-bottom: var(--space-4); }
+.mb-6 { margin-bottom: var(--space-6); }
+.mb-8 { margin-bottom: var(--space-8); }
+
+/* ==================== */
+/* WIDTH & HEIGHT */
+/* ==================== */
+
+.w-full { width: 100%; }
+.w-auto { width: auto; }
+.h-full { height: 100%; }
+.h-auto { height: auto; }
+.h-screen { height: 100vh; }
+
+/* Max width */
+.max-w-sm { max-width: var(--container-sm); }
+.max-w-md { max-width: var(--container-md); }
+.max-w-lg { max-width: var(--container-lg); }
+.max-w-xl { max-width: var(--container-xl); }
+.max-w-full { max-width: 100%; }
+
+/* ==================== */
+/* TEXT ALIGNMENT */
+/* ==================== */
+
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+
+/* ==================== */
+/* FONT SIZE */
+/* ==================== */
+
+.text-xs { font-size: var(--text-xs); }
+.text-sm { font-size: var(--text-sm); }
+.text-base { font-size: var(--text-base); }
+.text-lg { font-size: var(--text-lg); }
+.text-xl { font-size: var(--text-xl); }
+.text-2xl { font-size: var(--text-2xl); }
+.text-3xl { font-size: var(--text-3xl); }
+.text-4xl { font-size: var(--text-4xl); }
+
+/* ==================== */
+/* FONT WEIGHT */
+/* ==================== */
+
+.font-light { font-weight: var(--font-light); }
+.font-normal { font-weight: var(--font-normal); }
+.font-medium { font-weight: var(--font-medium); }
+.font-semibold { font-weight: var(--font-semibold); }
+.font-bold { font-weight: var(--font-bold); }
+
+/* ==================== */
+/* TEXT COLOR */
+/* ==================== */
+
+.text-primary { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-muted { color: var(--text-muted); }
+.text-accent { color: var(--accent-color); }
+
+/* ==================== */
+/* BACKGROUND COLOR */
+/* ==================== */
+
+.bg-primary { background-color: var(--bg-primary); }
+.bg-secondary { background-color: var(--bg-secondary); }
+.bg-tertiary { background-color: var(--bg-tertiary); }
+
+/* ==================== */
+/* BORDER RADIUS */
+/* ==================== */
+
+.rounded-none { border-radius: 0; }
+.rounded-sm { border-radius: var(--radius-sm); }
+.rounded { border-radius: var(--radius-md); }
+.rounded-lg { border-radius: var(--radius-lg); }
+.rounded-xl { border-radius: var(--radius-xl); }
+.rounded-full { border-radius: var(--radius-full); }
+
+/* ==================== */
+/* SHADOWS */
+/* ==================== */
+
+.shadow-sm { box-shadow: var(--shadow-sm); }
+.shadow { box-shadow: var(--shadow-md); }
+.shadow-lg { box-shadow: var(--shadow-lg); }
+.shadow-xl { box-shadow: var(--shadow-xl); }
+.shadow-none { box-shadow: none; }
+
+/* ==================== */
+/* POSITION */
+/* ==================== */
+
+.relative { position: relative; }
+.absolute { position: absolute; }
+.fixed { position: fixed; }
+.sticky { position: sticky; }
+
+/* ==================== */
+/* OVERFLOW */
+/* ==================== */
+
+.overflow-hidden { overflow: hidden; }
+.overflow-auto { overflow: auto; }
+.overflow-scroll { overflow: scroll; }
+
+/* ==================== */
+/* OPACITY */
+/* ==================== */
+
+.opacity-0 { opacity: 0; }
+.opacity-50 { opacity: 0.5; }
+.opacity-75 { opacity: 0.75; }
+.opacity-100 { opacity: 1; }
+
+/* ==================== */
+/* TRANSITIONS */
+/* ==================== */
+
+.transition { transition: all var(--transition-base) var(--ease-in-out); }
+.transition-fast { transition: all var(--transition-fast) var(--ease-in-out); }
+.transition-slow { transition: all var(--transition-slow) var(--ease-in-out); }
+
+/* ==================== */
+/* CURSOR */
+/* ==================== */
+
+.cursor-pointer { cursor: pointer; }
+.cursor-not-allowed { cursor: not-allowed; }
+
+/* ==================== */
+/* CONTAINER */
+/* ==================== */
+
+/**
+ * Container class - Sentrerer innhold og setter max-width
+ * Brukes ofte som wrapper rundt sections
+ */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--space-6);
+  padding-right: var(--space-6);
+}
+
+/* ==================== */
+/* RESPONSIVE UTILITIES */
+/* ==================== */
+
+/**
+ * Disse klassene skjuler/viser elementer basert på skjermstørrelse
+ * Nyttig for responsive design
+ */
+
+/* Skjul på mobil, vis på desktop */
+@media (max-width: 768px) {
+  .hide-mobile { display: none; }
+}
+
+/* Skjul på desktop, vis på mobil */
+@media (min-width: 769px) {
+  .hide-desktop { display: none; }
+}
+
+/**
+ * ============================================
+ * SLUTT PÅ UTILITIES.CSS
+ * ============================================
+ * 
+ * Disse utility classes kan nå brukes i HTML:
+ * 
+ * Eksempel:
+ * <div class="flex items-center gap-4 p-6 rounded-lg shadow">
+ *   <h2 class="text-2xl font-bold">Tittel</h2>
+ *   <p class="text-secondary">Beskrivelse</p>
+ * </div>
+ */
