@@ -1,0 +1,239 @@
+/**
+ * ============================================
+ * PLAYGROUND SECTION.CSS
+ * ============================================
+ * Plassering: /css/sections/playgroundSection.css
+ * 
+ * Styling for interaktiv playground section.
+ * 
+ * Konsepter demonstrert:
+ * - Tabs system
+ * - Code styling
+ * - Interactive elements
+ */
+
+/* ==================== */
+/* PLAYGROUND SECTION */
+/* ==================== */
+
+.playground {
+  background-color: var(--bg-primary);
+}
+
+.playground-container {
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+/* ==================== */
+/* TABS */
+/* ==================== */
+
+/**
+ * Tabs - Navigasjon mellom ulike eksempler
+ */
+.tabs {
+  display: flex;
+  background-color: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-color);
+  overflow-x: auto; /* Scroll på mobil */
+}
+
+/**
+ * Tab button
+ */
+.tab-btn {
+  flex: 1;
+  padding: var(--space-4) var(--space-6);
+  background-color: transparent;
+  color: var(--text-secondary);
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  transition: all var(--transition-base);
+  white-space: nowrap; /* Ikke wrap tekst */
+}
+
+.tab-btn:hover {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+/**
+ * Active tab
+ */
+.tab-btn.active {
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+  background-color: var(--bg-secondary);
+}
+
+/* ==================== */
+/* TAB CONTENT */
+/* ==================== */
+
+/**
+ * Tab content - Innholdet for hver tab
+ * Skjult som standard, vises når active
+ */
+.tab-content {
+  display: none;
+  padding: var(--space-8);
+  animation: fadeIn var(--transition-base);
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/**
+ * Fade in animasjon
+ */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==================== */
+/* PLAYGROUND DEMO */
+/* ==================== */
+
+.playground-demo h3 {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-3);
+  color: var(--text-primary);
+}
+
+.playground-demo p {
+  color: var(--text-secondary);
+  margin-bottom: var(--space-6);
+}
+
+/**
+ * Code element - Inline code
+ */
+code {
+  background-color: var(--bg-tertiary);
+  color: var(--accent-color);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+/* ==================== */
+/* DEMO CONTROLS */
+/* ==================== */
+
+/**
+ * Demo controls - Input felter og knapper
+ */
+.demo-controls {
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.demo-controls input {
+  flex: 1;
+  min-width: 200px;
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: var(--text-base);
+  transition: border-color var(--transition-base);
+}
+
+.demo-controls input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+.demo-controls input::placeholder {
+  color: var(--text-muted);
+}
+
+/* ==================== */
+/* DEMO OUTPUT */
+/* ==================== */
+
+/**
+ * Demo output - Viser resultatet
+ */
+.demo-output {
+  background-color: var(--bg-primary);
+  padding: var(--space-6);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  min-height: 100px;
+  color: var(--text-primary);
+}
+
+.demo-output:empty::before {
+  content: 'Output vises her...';
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/**
+ * Demo box - For DOM manipulation demo
+ */
+.demo-box {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  padding: var(--space-8);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  transition: all var(--transition-base);
+}
+
+/* ==================== */
+/* RESPONSIVE */
+/* ==================== */
+
+@media (max-width: 768px) {
+  .playground-container {
+    border-radius: var(--radius-lg);
+  }
+
+  .tab-content {
+    padding: var(--space-6);
+  }
+
+  .demo-controls {
+    flex-direction: column;
+  }
+
+  .demo-controls input {
+    min-width: 100%;
+  }
+
+  .tab-btn {
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--text-sm);
+  }
+}
+
+/**
+ * ============================================
+ * SLUTT PÅ PLAYGROUND SECTION.CSS
+ * ============================================
+ */

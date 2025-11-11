@@ -1,0 +1,31 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <!-- Bakgrunn -->
+  <rect width="1920" height="1080" fill="#0f172a"></rect>
+
+  <!-- Subtil radial lys-glød bak hero-innhold -->
+  <circle cx="420" cy="360" r="520" fill="url(#heroGlow)" opacity="0.9"></circle>
+
+  <!-- Dekorative norske/organiske former -->
+  <g opacity="0.35">
+    <path d="M1700 80 C1560 180 1540 340 1660 520" stroke="#d97757" stroke-width="4" fill="none" stroke-linecap="round"></path>
+    <path d="M1580 160 C1500 240 1490 320 1560 420" stroke="#8fbf73" stroke-width="3" fill="none" stroke-linecap="round"></path>
+    <path d="M1760 220 C1670 300 1660 400 1720 520" stroke="#e7dec2" stroke-width="2" fill="none" stroke-linecap="round"></path>
+  </g>
+
+  <!-- Geometriske chips (kodefølelse) -->
+  <g opacity="0.35" fill="none" stroke-linecap="round">
+    <rect x="180" y="760" width="120" height="70" rx="14" stroke="#e7dec2" stroke-width="2"></rect>
+    <rect x="340" y="850" width="80" height="50" rx="12" stroke="#d97757" stroke-width="2"></rect>
+    <rect x="520" y="720" width="90" height="60" rx="12" stroke="#8fbf73" stroke-width="2"></rect>
+  </g>
+
+  <!-- Definisjoner -->
+  <defs>
+    <radialGradient id="heroGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(420 360) rotate(90) scale(520)">
+      <stop offset="0%" stop-color="#e7dec2" stop-opacity="1"></stop>
+      <stop offset="60%" stop-color="#0f172a" stop-opacity="0.2"></stop>
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0"></stop>
+    </radialGradient>
+  </defs>
+</svg>

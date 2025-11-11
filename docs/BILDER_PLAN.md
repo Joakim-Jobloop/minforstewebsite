@@ -36,6 +36,43 @@
 - **Forslag:** Abstrakt gradient, geometriske former, eller kode-relatert illustrasjon
 - **Status:** 🔴 Må lages
 
+implementering eksempel (kan forbedres/perfeksjoneres):
+.hero {
+  position: relative;
+  min-height: 60vh;
+  background:
+    /* animert overlay */
+    linear-gradient(120deg, rgba(233, 166, 117, 0.12), rgba(143, 191, 115, 0.03), rgba(231, 222, 194, 0)) 0 0 / 200% 200% no-repeat,
+    url("/assets/images/hero-bg.svg") center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: #e2e8f0;
+  overflow: hidden;
+}
+
+@keyframes heroFlow {
+  0% {
+    background-position: 0% 0%, center;
+  }
+  100% {
+    background-position: 200% 0%, center;
+  }
+}
+
+.hero {
+  animation: heroFlow 18s linear infinite;
+}
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Min Første Website</h1>
+    <p>Litt norsk inspirasjon, litt kode, mye kontroll.</p>
+    <a href="#projects" class="btn">Se mer</a>
+  </div>
+</section>
+
+
 ---
 
 ### Feature Ikoner

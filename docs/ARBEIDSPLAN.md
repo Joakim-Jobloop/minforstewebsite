@@ -93,18 +93,18 @@ Oppgradere eksisterende website med fokus på:
 - [x] Legg til footer med informasjon
 - [x] Forbedre accessibility (ARIA labels, alt tekster)
 
-### Fase 3: CSS Styling
-- [ ] Implementer moderne fargepalett (mørk tema)
-- [ ] Style header med bedre navigasjon
-- [ ] Style hero section med moderne design
-- [ ] Lag about section med info om prosjektet
-- [ ] Lag features section (grid layout med cards)
-- [ ] Style playground section (interaktiv demo-område)
-- [ ] Forbedre people cards med bedre design
-- [ ] Lag contact section med form
-- [ ] Style footer
-- [ ] Legg til responsive breakpoints
-- [ ] Implementer subtile animasjoner
+### Fase 3: CSS Styling ✅
+- [x] Implementer moderne fargepalett (mørk tema)
+- [x] Style header med bedre navigasjon
+- [x] Style hero section med moderne design
+- [x] Lag about section med info om prosjektet
+- [x] Lag features section (grid layout med cards)
+- [x] Style playground section (interaktiv demo-område)
+- [x] Forbedre people cards med bedre design
+- [x] Lag contact section med form
+- [x] Style footer
+- [x] Legg til responsive breakpoints
+- [x] Implementer subtile animasjoner
 
 ### Fase 4: JavaScript Funksjonalitet
 - [ ] Lag main.js som koordinerer alt

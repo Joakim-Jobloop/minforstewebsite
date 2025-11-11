@@ -1,40 +1,315 @@
+/**
+ * ============================================
+ * HEADER.CSS
+ * ============================================
+ * Plassering: /css/header.css
+ * 
+ * Styling for header/navigasjon.
+ * Header er fixed (følger med når du scroller).
+ * 
+ * Konsepter demonstrert:
+ * - Position: fixed
+ * - Flexbox for layout
+ * - Z-index for layering
+ * - Transitions for smooth effekter
+ */
+
+/* ==================== */
+/* HEADER CONTAINER */
+/* ==================== */
+
+/**
+ * Header element - Fast posisjon øverst
+ * position: fixed gjør at den følger med når du scroller
+ * z-index: sørger for at den er over annet innhold
+ */
 header {
   position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  /* border: 2px red solid; */
-  background-color: rgb(2, 62, 42);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-inline: 24px;
-  height: 100px;
+  height: var(--header-height);
+  background-color: var(--bg-secondary);
+  backdrop-filter: blur(10px); /* Blur effekt på bakgrunn */
+  border-bottom: 1px solid var(--border-color);
+  z-index: var(--z-fixed);
+  transition: all var(--transition-base);
 }
 
-header > div {
-  /* border: 4px dotted yellow; */
-  height: 60px;
+/**
+ * Scrolled state - Endrer styling når bruker scroller ned
+ * Denne klassen legges til med JavaScript
+ */
+header.scrolled {
+  background-color: var(--bg-overlay);
+  box-shadow: var(--shadow-lg);
 }
 
-header > div > img {
+/* ==================== */
+/* HEADER LAYOUT */
+/* ==================== */
+
+/**
+ * Header container - Holder logo og nav
+ * Flexbox brukes for å plassere elementer horisontalt
+ */
+.header-container {
+  max-width: var(--max-width);
   height: 100%;
-}
-
-header > nav {
-  /* border: 4px dotted yellow; */
-}
-
-header > nav > ul {
-  /* border: 2px red solid; */
+  margin: 0 auto;
+  padding: 0 var(--space-6);
   display: flex;
-  gap: 24px;
+  justify-content: space-between; /* Logo til venstre, nav til høyre */
+  align-items: center; /* Sentrerer vertikalt */
 }
 
-li.navItem {
-  /* text-decoration: underline; */
+/* ==================== */
+/* LOGO */
+/* ==================== */
+
+/**
+ * Logo section - Inneholder bilde og tekst
+ */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.logo a {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--text-primary);
+  transition: transform var(--transition-base);
+}
+
+.logo a:hover {
+  transform: scale(1.05); /* Litt større på hover */
+}
+
+.logo img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain; /* Beholder aspect ratio */
+}
+
+.logo-text {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  color: var(--primary-color);
+}
+
+/* ==================== */
+/* NAVIGATION */
+/* ==================== */
+
+/**
+ * Nav element - Inneholder navigasjonslenker
+ */
+nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+/**
+ * Nav list - Liste med lenker
+ * Flexbox gjør at de ligger på rad
+ */
+.nav-list {
+  display: flex;
+  gap: var(--space-6);
   list-style: none;
 }
 
-li.navItem a {
-  text-decoration: none;
-  color: white;
+.nav-item {
+  position: relative; /* For underline effekt */
 }
+
+/**
+ * Nav links - Individuelle lenker
+ * Hover effekt med underline animasjon
+ */
+.nav-link {
+  color: var(--text-secondary);
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  padding: var(--space-2) var(--space-3);
+  transition: color var(--transition-base);
+  position: relative;
+}
+
+/**
+ * Underline effekt med ::after pseudo-element
+ * Starter med width: 0, vokser til 100% på hover
+ */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary-color);
+  transition: width var(--transition-base) var(--ease-out);
+}
+
+.nav-link:hover {
+  color: var(--primary-color);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/**
+ * Active link - Viser hvilken side du er på
+ */
+.nav-link.active {
+  color: var(--primary-color);
+}
+
+.nav-link.active::after {
+  width: 100%;
+}
+
+/* ==================== */
+/* MOBILE MENU BUTTON */
+/* ==================== */
+
+/**
+ * Hamburger menu button - Vises kun på mobil
+ * Skjult som standard, vises med media query
+ */
+.mobile-menu-btn {
+  display: none; /* Skjult på desktop */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+/**
+ * Hamburger icon - Tre streker
+ * Lages med ::before, element selv, og ::after
+ */
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+  width: 25px;
+  height: 2px;
+  background-color: var(--text-primary);
+  transition: all var(--transition-base);
+}
+
+.hamburger {
+  position: relative;
+}
+
+.hamburger::before,
+.hamburger::after {
+  content: '';
+  position: absolute;
+  left: 0;
+}
+
+.hamburger::before {
+  top: -8px;
+}
+
+.hamburger::after {
+  top: 8px;
+}
+
+/**
+ * Hamburger animasjon når menu er åpen
+ * Midterste linje forsvinner, topp og bunn roterer til X
+ */
+.mobile-menu-btn[aria-expanded="true"] .hamburger {
+  background-color: transparent;
+}
+
+.mobile-menu-btn[aria-expanded="true"] .hamburger::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.mobile-menu-btn[aria-expanded="true"] .hamburger::after {
+  top: 0;
+  transform: rotate(-45deg);
+}
+
+/* ==================== */
+/* RESPONSIVE - MOBILE */
+/* ==================== */
+
+/**
+ * Media query for tablets og mindre
+ * Endrer layout til mobilvennlig versjon
+ */
+@media (max-width: 768px) {
+  /* Vis hamburger menu button */
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  /* Skjul logo tekst på mobil */
+  .logo-text {
+    display: none;
+  }
+
+  /* Nav list - Endres til vertikal dropdown */
+  .nav-list {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background-color: var(--bg-secondary);
+    padding: var(--space-6);
+    gap: var(--space-4);
+    box-shadow: var(--shadow-xl);
+    
+    /* Skjult som standard */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
+    transition: all var(--transition-base);
+  }
+
+  /* Vis menu når åpen */
+  .nav-list.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  /* Full bredde lenker på mobil */
+  .nav-link {
+    display: block;
+    padding: var(--space-3);
+    text-align: center;
+  }
+
+  /* Underline full bredde på mobil */
+  .nav-link::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+/**
+ * ============================================
+ * SLUTT PÅ HEADER.CSS
+ * ============================================
+ * 
+ * Header er nå responsiv og har smooth animasjoner.
+ * Mobil menu implementeres med JavaScript i main.js
+ */

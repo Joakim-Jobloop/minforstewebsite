@@ -1,23 +1,113 @@
-button.scrollToTopButton {
-  /* z-index: 1000; */
-  bottom: 8px;
-  right: 8px;
+/**
+ * ============================================
+ * SCROLL TO TOP BUTTON.CSS
+ * ============================================
+ * Plassering: /css/utils/scrollToTopButton.css
+ * 
+ * Styling for scroll to top knapp.
+ * 
+ * Konsepter demonstrert:
+ * - Fixed positioning
+ * - Smooth transitions
+ * - Show/hide animasjon
+ */
+
+/* ==================== */
+/* SCROLL TO TOP BUTTON */
+/* ==================== */
+
+/**
+ * Scroll to top button - Fast knapp nederst til høyre
+ * Vises kun når bruker har scrollet ned
+ */
+.scroll-to-top-btn {
   position: fixed;
-  font-size: 32px;
-  font-weight: 600;
-  padding: 12px 24px;
-  border-radius: 40px;
-  background-color: rgb(30, 255, 139);
+  bottom: var(--space-6);
+  right: var(--space-6);
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Styling */
+  background-color: var(--primary-color);
+  color: white;
   border: none;
-  color: rgb(5, 96, 66);
+  border-radius: var(--radius-full);
+  font-size: var(--text-2xl);
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  
+  /* Z-index for å være over annet innhold */
+  z-index: var(--z-fixed);
+  
+  /* Transitions */
+  transition: all var(--transition-base);
+  
+  /* Skjult som standard */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
 }
 
-button.scrollToTopButton:hover {
-  background-color: rgb(82, 107, 99);
-  color: rgb(0, 255, 123);
+/**
+ * Visible state - Vises når bruker scroller ned
+ * Klassen legges til med JavaScript
+ */
+.scroll-to-top-btn.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
 }
 
-button.scrollToTopButton:active {
-  background-color: rgb(1, 30, 20);
-  color: rgb(30, 255, 139);
+/**
+ * Hover state
+ */
+.scroll-to-top-btn:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl), var(--glow-primary);
 }
+
+/**
+ * Active state - Når knappen trykkes
+ */
+.scroll-to-top-btn:active {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/**
+ * Focus state - For keyboard navigation
+ */
+.scroll-to-top-btn:focus {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* ==================== */
+/* RESPONSIVE */
+/* ==================== */
+
+/**
+ * Mobil - Mindre knapp og annen plassering
+ */
+@media (max-width: 768px) {
+  .scroll-to-top-btn {
+    bottom: var(--space-4);
+    right: var(--space-4);
+    width: 45px;
+    height: 45px;
+    font-size: var(--text-xl);
+  }
+}
+
+/**
+ * ============================================
+ * SLUTT PÅ SCROLL TO TOP BUTTON.CSS
+ * ============================================
+ * 
+ * Knappen vises/skjules med JavaScript basert på scroll posisjon.
+ * Se main.js for implementering.
+ */
