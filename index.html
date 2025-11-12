@@ -322,7 +322,6 @@
             <div class="tabs">
               <button class="tab-btn active" data-tab="html">HTML</button>
               <button class="tab-btn" data-tab="css">CSS</button>
-              <button class="tab-btn" data-tab="editor">✨ Code Editor</button>
               <button class="tab-btn" data-tab="react">⚛️ React</button>
               <button class="tab-btn" data-tab="typescript">📘 TypeScript</button>
               <button class="tab-btn" data-tab="tailwind">🎨 Tailwind</button>
@@ -352,93 +351,6 @@
                 
                 <div class="demo-output" id="htmlOutput">
                   <p style="color: var(--text-muted);">Klikk på en knapp for å se HTML eksempler!</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="tab-content" id="editor-tab">
-              <div class="playground-demo">
-                <h3>Code Editor</h3>
-                <p>Skriv og kjør din egen HTML, CSS og JavaScript kode!</p>
-                
-                <div class="editor-container">
-                  <!-- Editor tabs -->
-                  <div class="editor-tabs">
-                    <button class="editor-tab-btn active" data-lang="html">HTML</button>
-                    <button class="editor-tab-btn" data-lang="css">CSS</button>
-                    <button class="editor-tab-btn" data-lang="javascript">JavaScript</button>
-                  </div>
-                  
-                  <!-- Code editors -->
-                  <div class="code-editor-wrapper">
-                    <div class="code-editor active" id="html-editor">
-                      <div class="line-numbers" id="html-line-numbers"></div>
-                      <textarea 
-                        id="html-code" 
-                        class="code-input" 
-                        spellcheck="false"
-                        placeholder="Skriv HTML her..."><!DOCTYPE html>
-<html>
-<head>
-  <title>Min Side</title>
-</head>
-<body>
-  <h1>Hei, verden!</h1>
-  <p>Dette er min første nettside.</p>
-</body>
-</html></textarea>
-                    </div>
-                    
-                    <div class="code-editor" id="css-editor">
-                      <div class="line-numbers" id="css-line-numbers"></div>
-                      <textarea 
-                        id="css-code" 
-                        class="code-input" 
-                        spellcheck="false"
-                        placeholder="Skriv CSS her...">body {
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  color: white;
-  padding: 2rem;
-}
-
-h1 {
-  color: #ffd700;
-}</textarea>
-                    </div>
-                    
-                    <div class="code-editor" id="js-editor">
-                      <div class="line-numbers" id="js-line-numbers"></div>
-                      <textarea 
-                        id="js-code" 
-                        class="code-input" 
-                        spellcheck="false"
-                        placeholder="Skriv JavaScript her...">// Skriv JavaScript her
-console.log('Hei fra JavaScript!');
-
-document.addEventListener('DOMContentLoaded', () => {
-  alert('Siden er lastet!');
-});</textarea>
-                    </div>
-                  </div>
-                  
-                  <!-- Controls -->
-                  <div class="editor-controls">
-                    <button class="btn btn-primary" id="runCodeBtn">▶ Kjør Kode</button>
-                    <button class="btn btn-secondary" id="resetCodeBtn">↻ Reset</button>
-                    <button class="btn btn-ghost" id="copyCodeBtn">📋 Kopier</button>
-                    <button class="btn btn-success" id="saveCodeBtn">💾 Lagre</button>
-                    <button class="btn btn-info" id="loadCodeBtn">📂 Last</button>
-                    <button class="btn btn-accent" id="exportCodeBtn">📥 Eksporter</button>
-                  </div>
-                  
-                  <!-- Preview -->
-                  <div class="code-preview">
-                    <div class="preview-header">
-                      <span>Preview:</span>
-                    </div>
-                    <iframe id="preview-frame" sandbox="allow-scripts"></iframe>
-                  </div>
                 </div>
               </div>
             </div>
@@ -626,24 +538,6 @@ document.addEventListener('DOMContentLoaded', () => {
               </div>
             </div>
 
-            <div class="tab-content" id="dom-tab">
-              <div class="playground-demo">
-                <h3>DOM Manipulation</h3>
-                <p>JavaScript kan endre HTML og CSS dynamisk.</p>
-                
-                <div class="demo-controls">
-                  <button class="btn btn-primary" id="changeColorBtn">Endre Farge</button>
-                  <button class="btn btn-secondary" id="changeTextBtn">Endre Tekst</button>
-                </div>
-                
-                <div class="demo-output">
-                  <div id="demoBox" class="demo-box">
-                    Jeg kan endres!
-                  </div>
-                </div>
-              </div>
-            </div>
-
             <div class="tab-content" id="events-tab">
               <div class="playground-demo">
                 <h3>Event Listeners</h3>
@@ -691,40 +585,6 @@ document.addEventListener('DOMContentLoaded', () => {
               </div>
             </div>
 
-            <div class="tab-content" id="react-tab">
-              <div class="playground-demo">
-                <h3>⚛️ React Basics</h3>
-                <p>React er et JavaScript library for å bygge brukergrensesnitt.</p>
-                
-                <div class="demo-controls">
-                  <button class="btn btn-primary" id="reactComponentBtn">Component</button>
-                  <button class="btn btn-secondary" id="reactStateBtn">useState</button>
-                  <button class="btn btn-accent" id="reactEffectBtn">useEffect</button>
-                </div>
-                
-                <div class="demo-output" id="reactOutput">
-                  <p style="color: var(--text-muted);">Klikk på en knapp for å se React eksempler!</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="tab-content" id="typescript-tab">
-              <div class="playground-demo">
-                <h3>📘 TypeScript Basics</h3>
-                <p>TypeScript er JavaScript med type safety.</p>
-                
-                <div class="demo-controls">
-                  <button class="btn btn-primary" id="tsTypesBtn">Types</button>
-                  <button class="btn btn-secondary" id="tsInterfaceBtn">Interface</button>
-                  <button class="btn btn-accent" id="tsGenericsBtn">Generics</button>
-                </div>
-                
-                <div class="demo-output" id="tsOutput">
-                  <p style="color: var(--text-muted);">Klikk på en knapp for å se TypeScript eksempler!</p>
-                </div>
-              </div>
-            </div>
-
             <div class="tab-content" id="vue-tab">
               <div class="playground-demo">
                 <h3>💚 Vue.js Basics</h3>
@@ -742,22 +602,6 @@ document.addEventListener('DOMContentLoaded', () => {
               </div>
             </div>
 
-            <div class="tab-content" id="tailwind-tab">
-              <div class="playground-demo">
-                <h3>🎨 Tailwind CSS</h3>
-                <p>Tailwind er et utility-first CSS framework.</p>
-                
-                <div class="demo-controls">
-                  <button class="btn btn-primary" id="twLayoutBtn">Layout</button>
-                  <button class="btn btn-secondary" id="twColorsBtn">Colors</button>
-                  <button class="btn btn-accent" id="twResponsiveBtn">Responsive</button>
-                </div>
-                
-                <div class="demo-output" id="twOutput">
-                  <p style="color: var(--text-muted);">Klikk på en knapp for å se Tailwind eksempler!</p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
