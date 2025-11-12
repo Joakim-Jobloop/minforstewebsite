@@ -1,0 +1,198 @@
+/**
+ * ============================================
+ * CONTACT SECTION.CSS
+ * ============================================
+ * Plassering: /css/sections/contactSection.css
+ * 
+ * Styling for contact section med form.
+ * 
+ * Konsepter demonstrert:
+ * - Form styling
+ * - Input states
+ * - Validation styling
+ */
+
+/* ==================== */
+/* CONTACT SECTION */
+/* ==================== */
+
+.contact {
+  background-color: var(--bg-secondary);
+}
+
+/* ==================== */
+/* CONTACT FORM */
+/* ==================== */
+
+/**
+ * Contact form - Sentrert og max-width
+ */
+.contact-form {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: var(--bg-primary);
+  padding: var(--space-8);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-color);
+}
+
+/* ==================== */
+/* FORM GROUP */
+/* ==================== */
+
+/**
+ * Form group - Container for label + input
+ */
+.form-group {
+  margin-bottom: var(--space-6);
+}
+
+/**
+ * Label - Tekst over input felt
+ */
+.form-group label {
+  display: block;
+  margin-bottom: var(--space-2);
+  color: var(--text-primary);
+  font-weight: var(--font-medium);
+  font-size: var(--text-base);
+}
+
+/**
+ * Required indicator - Stjerne for påkrevde felt
+ */
+.form-group label::after {
+  content: ' *';
+  color: var(--error-color);
+}
+
+/* ==================== */
+/* INPUT FIELDS */
+/* ==================== */
+
+/**
+ * Input og textarea - Felles styling
+ */
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: var(--text-base);
+  font-family: var(--font-primary);
+  transition: all var(--transition-base);
+}
+
+/**
+ * Placeholder styling
+ */
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--text-muted);
+}
+
+/**
+ * Focus state - Når bruker klikker i feltet
+ */
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+/**
+ * Textarea - Spesifikk styling
+ */
+.form-group textarea {
+  resize: vertical; /* Kun vertikal resize */
+  min-height: 120px;
+}
+
+/* ==================== */
+/* VALIDATION STATES */
+/* ==================== */
+
+/**
+ * Valid state - Grønn border
+ */
+.form-group input.valid,
+.form-group textarea.valid {
+  border-color: var(--success-color);
+}
+
+/**
+ * Invalid state - Rød border
+ */
+.form-group input.invalid,
+.form-group textarea.invalid {
+  border-color: var(--error-color);
+}
+
+/**
+ * Error message - Vises under input ved feil
+ */
+.error-message {
+  display: block;
+  margin-top: var(--space-2);
+  color: var(--error-color);
+  font-size: var(--text-sm);
+  min-height: 20px; /* Forhindrer layout shift */
+}
+
+.error-message:empty {
+  display: none;
+}
+
+/* ==================== */
+/* SUCCESS MESSAGE */
+/* ==================== */
+
+/**
+ * Success message - Vises når form er sendt
+ */
+.success-message {
+  background-color: rgba(16, 185, 129, 0.1);
+  border: 1px solid var(--success-color);
+  color: var(--success-color);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  margin-top: var(--space-6);
+  text-align: center;
+  font-weight: var(--font-medium);
+}
+
+/* ==================== */
+/* SUBMIT BUTTON */
+/* ==================== */
+
+/**
+ * Submit button - Full bredde
+ */
+.contact-form button[type="submit"] {
+  width: 100%;
+  margin-top: var(--space-4);
+}
+
+/* ==================== */
+/* RESPONSIVE */
+/* ==================== */
+
+@media (max-width: 768px) {
+  .contact-form {
+    padding: var(--space-6);
+  }
+
+  .form-group {
+    margin-bottom: var(--space-5);
+  }
+}
+
+/**
+ * ============================================
+ * SLUTT PÅ CONTACT SECTION.CSS
+ * ============================================
+ */

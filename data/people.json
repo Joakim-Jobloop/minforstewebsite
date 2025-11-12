@@ -64,5 +64,11 @@
     "age": 120,
     "isMale": true,
     "hobbies": ["drum", "MJ", "Music"]
+  },
+  {
+    "name": "Joakim",
+    "age": "too old",
+    "isMale": "goblin",
+    "hobbies": ["Eldoria", "Nitpicking", "Optimization of coffee amount per line of code"]
   }
 ]

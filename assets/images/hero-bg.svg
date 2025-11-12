@@ -1,0 +1,161 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <!-- Definere gradienter og effekter først -->
+  <defs>
+    <!-- Hovedgradient bakgrunn -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1e293b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Lilla glow gradient -->
+    <radialGradient id="purpleGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#7c3aed;stop-opacity:0.4" />
+      <stop offset="50%" style="stop-color:#7c3aed;stop-opacity:0.2" />
+      <stop offset="100%" style="stop-color:#7c3aed;stop-opacity:0" />
+    </radialGradient>
+    
+    <!-- Cyan glow gradient -->
+    <radialGradient id="cyanGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#06b6d4;stop-opacity:0.4" />
+      <stop offset="50%" style="stop-color:#06b6d4;stop-opacity:0.2" />
+      <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:0" />
+    </radialGradient>
+    
+    <!-- Amber glow gradient -->
+    <radialGradient id="amberGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:0.3" />
+      <stop offset="50%" style="stop-color:#f59e0b;stop-opacity:0.15" />
+      <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:0" />
+    </radialGradient>
+    
+    <!-- Code gradient -->
+    <linearGradient id="codeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#7c3aed;stop-opacity:0.8" />
+      <stop offset="50%" style="stop-color:#06b6d4;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:0.8" />
+    </linearGradient>
+    
+    <!-- Blur filter for soft glow -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Bakgrunn med gradient -->
+  <rect width="1920" height="1080" fill="url(#bgGradient)"/>
+  
+  <!-- Glow circles - atmosfære -->
+  <circle cx="300" cy="400" r="400" fill="url(#purpleGlow)" opacity="0.6"/>
+  <circle cx="1600" cy="200" r="350" fill="url(#cyanGlow)" opacity="0.5"/>
+  <circle cx="1400" cy="800" r="300" fill="url(#amberGlow)" opacity="0.4"/>
+  
+  <!-- Geometriske former - moderne design -->
+  <g opacity="0.15">
+    <!-- Trekanter -->
+    <polygon points="1700,100 1800,300 1600,300" fill="#7c3aed"/>
+    <polygon points="200,800 300,950 100,950" fill="#06b6d4"/>
+    <polygon points="1500,600 1600,750 1400,750" fill="#f59e0b"/>
+    
+    <!-- Sirkler -->
+    <circle cx="1750" cy="500" r="40" fill="none" stroke="#7c3aed" stroke-width="2"/>
+    <circle cx="150" cy="200" r="30" fill="none" stroke="#06b6d4" stroke-width="2"/>
+    <circle cx="1650" cy="900" r="35" fill="none" stroke="#f59e0b" stroke-width="2"/>
+  </g>
+  
+  <!-- Kode-inspirerte elementer -->
+  <g opacity="0.25" font-family="monospace" font-size="14" fill="#e2e8f0">
+    <!-- HTML tags -->
+    <text x="1600" y="150" opacity="0.6">&lt;html&gt;</text>
+    <text x="1620" y="170" opacity="0.5">&lt;body&gt;</text>
+    <text x="1640" y="190" opacity="0.4">&lt;div&gt;</text>
+    
+    <!-- CSS properties -->
+    <text x="100" y="100" opacity="0.5" fill="#7c3aed">color: #7c3aed;</text>
+    <text x="100" y="120" opacity="0.4" fill="#06b6d4">display: flex;</text>
+    
+    <!-- JavaScript -->
+    <text x="1550" y="750" opacity="0.5" fill="#f59e0b">const code = () =&gt; {</text>
+    <text x="1570" y="770" opacity="0.4" fill="#f59e0b">  return 'awesome';</text>
+    <text x="1550" y="790" opacity="0.3" fill="#f59e0b">}</text>
+  </g>
+  
+  <!-- Dekorative linjer - grid pattern -->
+  <g opacity="0.08" stroke="#e2e8f0" stroke-width="1">
+    <line x1="0" y1="200" x2="1920" y2="200"/>
+    <line x1="0" y1="400" x2="1920" y2="400"/>
+    <line x1="0" y1="600" x2="1920" y2="600"/>
+    <line x1="0" y1="800" x2="1920" y2="800"/>
+    <line x1="400" y1="0" x2="400" y2="1080"/>
+    <line x1="800" y1="0" x2="800" y2="1080"/>
+    <line x1="1200" y1="0" x2="1200" y2="1080"/>
+    <line x1="1600" y1="0" x2="1600" y2="1080"/>
+  </g>
+  
+  <!-- Floating code blocks -->
+  <g opacity="0.2">
+    <!-- Block 1 -->
+    <rect x="1400" y="350" width="180" height="120" rx="12" fill="#1e293b" stroke="url(#codeGradient)" stroke-width="2"/>
+    <text x="1420" y="380" font-family="monospace" font-size="12" fill="#7c3aed">function hello() {</text>
+    <text x="1440" y="400" font-family="monospace" font-size="12" fill="#06b6d4">  console.log(</text>
+    <text x="1460" y="420" font-family="monospace" font-size="12" fill="#f59e0b">    'Hello!'</text>
+    <text x="1440" y="440" font-family="monospace" font-size="12" fill="#06b6d4">  );</text>
+    <text x="1420" y="460" font-family="monospace" font-size="12" fill="#7c3aed">}</text>
+    
+    <!-- Block 2 -->
+    <rect x="150" y="600" width="200" height="100" rx="12" fill="#1e293b" stroke="#7c3aed" stroke-width="2"/>
+    <text x="170" y="630" font-family="monospace" font-size="12" fill="#7c3aed">.hero {</text>
+    <text x="190" y="650" font-family="monospace" font-size="12" fill="#06b6d4">  display: flex;</text>
+    <text x="190" y="670" font-family="monospace" font-size="12" fill="#f59e0b">  align-items: center;</text>
+    <text x="170" y="690" font-family="monospace" font-size="12" fill="#7c3aed">}</text>
+  </g>
+  
+  <!-- Dots pattern - subtle texture -->
+  <g opacity="0.05">
+    <circle cx="300" cy="300" r="2" fill="#e2e8f0"/>
+    <circle cx="350" cy="300" r="2" fill="#e2e8f0"/>
+    <circle cx="400" cy="300" r="2" fill="#e2e8f0"/>
+    <circle cx="450" cy="300" r="2" fill="#e2e8f0"/>
+    <circle cx="500" cy="300" r="2" fill="#e2e8f0"/>
+    
+    <circle cx="300" cy="350" r="2" fill="#e2e8f0"/>
+    <circle cx="350" cy="350" r="2" fill="#e2e8f0"/>
+    <circle cx="400" cy="350" r="2" fill="#e2e8f0"/>
+    <circle cx="450" cy="350" r="2" fill="#e2e8f0"/>
+    <circle cx="500" cy="350" r="2" fill="#e2e8f0"/>
+    
+    <circle cx="1400" cy="500" r="2" fill="#e2e8f0"/>
+    <circle cx="1450" cy="500" r="2" fill="#e2e8f0"/>
+    <circle cx="1500" cy="500" r="2" fill="#e2e8f0"/>
+    <circle cx="1550" cy="500" r="2" fill="#e2e8f0"/>
+    
+    <circle cx="1400" cy="550" r="2" fill="#e2e8f0"/>
+    <circle cx="1450" cy="550" r="2" fill="#e2e8f0"/>
+    <circle cx="1500" cy="550" r="2" fill="#e2e8f0"/>
+    <circle cx="1550" cy="550" r="2" fill="#e2e8f0"/>
+  </g>
+  
+  <!-- Brackets - code theme -->
+  <g opacity="0.15" stroke-width="3" fill="none" stroke-linecap="round">
+    <path d="M 100 400 Q 80 450 100 500" stroke="#7c3aed"/>
+    <path d="M 1820 300 Q 1840 350 1820 400" stroke="#06b6d4"/>
+    <path d="M 200 900 Q 180 950 200 1000" stroke="#f59e0b"/>
+  </g>
+  
+  <!-- Curved lines - flow -->
+  <g opacity="0.1" stroke-width="2" fill="none">
+    <path d="M 0 540 Q 480 400 960 540 T 1920 540" stroke="url(#codeGradient)"/>
+    <path d="M 0 600 Q 480 460 960 600 T 1920 600" stroke="url(#codeGradient)"/>
+  </g>
+  
+  <!-- Highlight circles with glow -->
+  <g filter="url(#glow)">
+    <circle cx="1700" cy="250" r="8" fill="#7c3aed" opacity="0.6"/>
+    <circle cx="220" cy="180" r="6" fill="#06b6d4" opacity="0.6"/>
+    <circle cx="1550" cy="850" r="7" fill="#f59e0b" opacity="0.6"/>
+  </g>
+</svg>

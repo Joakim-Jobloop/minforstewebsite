@@ -1,0 +1,423 @@
+/**
+ * ============================================
+ * PLAYGROUND SECTION.CSS
+ * ============================================
+ * Plassering: /css/sections/playgroundSection.css
+ * 
+ * Styling for interaktiv playground section.
+ * 
+ * Konsepter demonstrert:
+ * - Tabs system
+ * - Code styling
+ * - Interactive elements
+ */
+
+/* ==================== */
+/* PLAYGROUND SECTION */
+/* ==================== */
+
+.playground {
+  background-color: var(--bg-primary);
+}
+
+.playground-container {
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+/* ==================== */
+/* TABS */
+/* ==================== */
+
+/**
+ * Tabs - Navigasjon mellom ulike eksempler
+ */
+.tabs {
+  display: flex;
+  background-color: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-color);
+  overflow-x: auto; /* Scroll på mobil */
+  gap: var(--space-1);
+  padding: var(--space-2);
+  
+  /* Smooth scrolling på mobil */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Hide scrollbar but keep functionality */
+.tabs::-webkit-scrollbar {
+  height: 4px;
+}
+
+.tabs::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+.tabs::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: var(--radius-full);
+}
+
+/**
+ * Tab button
+ */
+.tab-btn {
+  flex-shrink: 0; /* Ikke krymp tabs */
+  padding: var(--space-3) var(--space-5);
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  transition: all var(--transition-base);
+  white-space: nowrap; /* Ikke wrap tekst */
+}
+
+.tab-btn:hover {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border-color: var(--border-light);
+}
+
+/**
+ * Active tab
+ */
+.tab-btn.active {
+  color: white;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-md);
+}
+
+/* ==================== */
+/* TAB CONTENT */
+/* ==================== */
+
+/**
+ * Tab content - Innholdet for hver tab
+ * Skjult som standard, vises når active
+ */
+.tab-content {
+  display: none;
+  padding: var(--space-8);
+  animation: fadeIn var(--transition-base);
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/**
+ * Fade in animasjon
+ */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==================== */
+/* PLAYGROUND DEMO */
+/* ==================== */
+
+.playground-demo h3 {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-3);
+  color: var(--text-primary);
+}
+
+.playground-demo p {
+  color: var(--text-secondary);
+  margin-bottom: var(--space-6);
+}
+
+/**
+ * Code element - Inline code
+ */
+code {
+  background-color: var(--bg-tertiary);
+  color: var(--accent-color);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+/* ==================== */
+/* DEMO CONTROLS */
+/* ==================== */
+
+/**
+ * Demo controls - Input felter og knapper
+ */
+.demo-controls {
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.demo-controls input {
+  flex: 1;
+  min-width: 200px;
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: var(--text-base);
+  transition: border-color var(--transition-base);
+}
+
+.demo-controls input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+.demo-controls input::placeholder {
+  color: var(--text-muted);
+}
+
+/* ==================== */
+/* DEMO OUTPUT */
+/* ==================== */
+
+/**
+ * Demo output - Viser resultatet
+ */
+.demo-output {
+  background-color: var(--bg-primary);
+  padding: var(--space-6);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  min-height: 100px;
+  color: var(--text-primary);
+}
+
+.demo-output:empty::before {
+  content: 'Output vises her...';
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/**
+ * Demo box - For DOM manipulation demo
+ */
+.demo-box {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  padding: var(--space-8);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  transition: all var(--transition-base);
+}
+
+/* ==================== */
+/* RESPONSIVE */
+/* ==================== */
+
+@media (max-width: 768px) {
+  .playground-container {
+    border-radius: var(--radius-lg);
+  }
+
+  .tab-content {
+    padding: var(--space-6);
+  }
+
+  .demo-controls {
+    flex-direction: column;
+  }
+
+  .demo-controls input {
+    min-width: 100%;
+  }
+
+  .tab-btn {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-xs);
+  }
+  
+  .tabs {
+    padding: var(--space-1);
+  }
+}
+
+/* ==================== */
+/* CODE EDITOR */
+/* ==================== */
+
+.editor-container {
+  margin-top: var(--space-6);
+}
+
+/**
+ * Editor tabs
+ */
+.editor-tabs {
+  display: flex;
+  gap: var(--space-1);
+  background-color: var(--bg-primary);
+  padding: var(--space-2);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.editor-tab-btn {
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  transition: all var(--transition-base);
+}
+
+.editor-tab-btn:hover {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.editor-tab-btn.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/**
+ * Code editor wrapper
+ */
+.code-editor-wrapper {
+  position: relative;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.code-editor {
+  display: none;
+  position: relative;
+  min-height: 400px;
+}
+
+.code-editor.active {
+  display: flex;
+}
+
+/**
+ * Line numbers
+ */
+.line-numbers {
+  background-color: var(--bg-tertiary);
+  color: var(--text-muted);
+  padding: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  text-align: right;
+  user-select: none;
+  min-width: 50px;
+  border-right: 1px solid var(--border-color);
+  overflow-y: hidden;
+}
+
+/**
+ * Code input
+ */
+.code-input {
+  flex: 1;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: none;
+  padding: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  resize: none;
+  outline: none;
+  height: 100%;
+  min-height: 400px;
+  white-space: pre;
+  overflow-wrap: normal;
+  overflow-x: auto;
+}
+
+.code-input::placeholder {
+  color: var(--text-muted);
+}
+
+/**
+ * Editor controls
+ */
+.editor-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  background-color: var(--bg-tertiary);
+  border-top: 1px solid var(--border-color);
+}
+
+.editor-controls .btn {
+  font-size: var(--text-sm);
+  padding: var(--space-2) var(--space-4);
+}
+
+/* Responsive: Stack buttons on mobile */
+@media (max-width: 640px) {
+  .editor-controls {
+    flex-direction: column;
+  }
+  
+  .editor-controls .btn {
+    width: 100%;
+  }
+}
+
+/**
+ * Code preview
+ */
+.code-preview {
+  margin-top: var(--space-4);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.preview-header {
+  background-color: var(--bg-tertiary);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+#preview-frame {
+  width: 100%;
+  min-height: 400px;
+  border: none;
+  background-color: white;
+}
+
+/**
+ * ============================================
+ * SLUTT PÅ PLAYGROUND SECTION.CSS
+ * ============================================
+ */

@@ -1,102 +1,842 @@
+<!--
+  ============================================
+  INDEX.HTML
+  ============================================
+  Plassering: /index.html
+  
+  Dette er hovedfilen for nettsiden.
+  HTML (HyperText Markup Language) er strukturen/skjelettet
+  til nettsiden. Her definerer vi alt innhold og hvordan
+  det er organisert.
+  
+  Viktige konsepter demonstrert her:
+  - Semantisk HTML5 (header, nav, main, section, footer)
+  - Meta tags for SEO og responsivt design
+  - Accessibility (ARIA labels, alt tekster)
+  - Moderne HTML struktur
+-->
+
 <!DOCTYPE html>
-<html lang="en">
+<!-- DOCTYPE forteller browseren at dette er et HTML5 dokument -->
+
+<html lang="no">
+<!-- 
+  HTML element - Root element for hele siden
+  lang="no" forteller browseren at innholdet er på norsk
+  (viktig for skjermlesere og søkemotorer)
+-->
+
   <head>
+    <!-- 
+      HEAD section - Inneholder metadata om siden
+      Dette vises IKKE på siden, men er viktig for browseren
+    -->
+    
+    <!-- Character encoding - Støtter norske tegn (æ, ø, å) -->
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link
-      rel="preconnect"
-      href="https://fonts.googleapis.com" />
-    <link
-      rel="preconnect"
-      href="https://fonts.gstatic.com"
-      crossorigin />
+    
+    <!-- Viewport - Gjør siden responsiv på mobil -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- SEO Meta tags - Hjelper søkemotorer å forstå siden -->
+    <meta name="description" content="Min Første Website - En moderne, interaktiv nettside som lærer deg HTML, CSS og JavaScript. Perfekt for nybegynnere!" />
+    <meta name="keywords" content="HTML, CSS, JavaScript, webutvikling, læring, tutorial, nybegynner" />
+    <meta name="author" content="[Ditt Navn]" />
+    
+    <!-- Title - Vises i browser tab -->
+    <title>Min Første Website | Lær HTML, CSS & JavaScript</title>
+    
+    <!-- Favicon - Lite ikon i browser tab -->
+    <link rel="icon" type="image/png" href="/assets/icons/logoNordisk.png" />
+    
+    <!-- Preconnect - Kobler til Google Fonts raskere -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Google Fonts - Laster inn custom fonter -->
     <link
       href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Graduate&display=swap"
       rel="stylesheet" />
-    <link
-      rel="stylesheet"
-      href="/css/main.css" />
-    <!-- <script
-      defer
-      src="script.js"></script> -->
-    <!-- <script
-      defer
-      src="loops.js"></script> -->
-    <!-- <script
-      type="module"
-      src="/js/cards.js"></script> -->
-    <script
-      type="module"
-      src="/js/randomHobbyList.js"></script>
+    
+    <!-- Main CSS - Vår egen styling -->
+    <link rel="stylesheet" href="/css/main.css" />
+    
+    <!-- JavaScript - type="module" gjør at vi kan bruke moderne JS -->
+    <script type="module" src="/js/main.js" defer></script>
   </head>
+
   <body>
+    <!-- 
+      BODY section - Alt synlig innhold på siden
+      Dette er det brukeren faktisk ser
+    -->
+    <!-- Skip to main content - For accessibility (keyboard navigation) -->
+    <a href="#main-content" class="skip-to-main">
+      Hopp til hovedinnhold
+    </a>
+
+    <!-- Anchor for scroll to top -->
     <div id="top"></div>
+
+    <!-- 
+      ==========================================
+      HEADER - Navigasjon
+      ==========================================
+      Header element er semantisk HTML5 for toppen av siden.
+      Inneholder logo og navigasjon.
+      position: fixed gjør at den følger med når du scroller.
+    -->
     <header>
-      <div>
-        <img
-          src="icon.png"
-          alt="" />
+      <div class="header-container">
+        <!-- Logo -->
+        <div class="logo">
+          <a href="#top" aria-label="Gå til toppen av siden">
+            <img
+              src="/assets/icons/logoNordisk.png"
+              alt="Min Første Website Logo"
+              width="60"
+              height="60"
+              onerror="this.src='/icon.png'" />
+            <span class="logo-text">Min Første Website</span>
+          </a>
+        </div>
+
+        <!-- Navigation -->
+        <nav aria-label="Hovednavigasjon">
+          <ul class="nav-list">
+            <li class="nav-item">
+              <a href="#top" class="nav-link">Hjem</a>
+            </li>
+            <li class="nav-item">
+              <a href="#about" class="nav-link">Om</a>
+            </li>
+            <li class="nav-item">
+              <a href="#features" class="nav-link">Features</a>
+            </li>
+            <li class="nav-item">
+              <a href="#playground" class="nav-link">Playground</a>
+            </li>
+            <li class="nav-item">
+              <a href="#people" class="nav-link">People</a>
+            </li>
+            <li class="nav-item">
+              <a href="#contact" class="nav-link">Kontakt</a>
+            </li>
+          </ul>
+
+          <!-- Mobile menu button -->
+          <button class="mobile-menu-btn" aria-label="Åpne meny" aria-expanded="false">
+            <span class="hamburger">
+              <img src="/assets/icons/menu.png" alt="" id="menuIcon" />
+            </span>
+          </button>
+        </nav>
       </div>
-      <nav>
-        <ul>
-          <li class="navItem">
-            <a href="">Home</a>
-          </li>
-          <li class="navItem">
-            <a href="#aboutSection">About</a>
-          </li>
-          <li class="navItem">
-            <a href="#contactSection">Contact</a>
-          </li>
-          <li class="navItem">
-            <a
-              target="_blank"
-              href="https://www.villoutvikling.com"
-              >VU</a
-            >
-          </li>
-        </ul>
-      </nav>
     </header>
 
-    <main>
-      <section class="hero">
-        <div>
-          <h1 id="heading">This is some important text for the website</h1>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsam
-            perspiciatis quaerat voluptas tempore repellat quasi earum? Nisi
-            ipsa nihil laudantium quis et vero itaque placeat, sed at eum
-            dolorum voluptate!
+    <!-- 
+      ==========================================
+      MAIN - Hovedinnhold
+      ==========================================
+      Main element inneholder hovedinnholdet på siden.
+      Kun én <main> per side.
+      id="main-content" brukes for skip-to-main link.
+    -->
+    <main id="main-content">
+
+      <!-- 
+        ==========================================
+        HERO SECTION - Første inntrykk
+        ==========================================
+        Hero section er det første brukeren ser.
+        Skal fange oppmerksomhet og forklare hva siden handler om.
+      -->
+      <section class="hero" aria-label="Hero section">
+        <div class="hero-content">
+          <!-- Logo display -->
+          <div class="hero-logo">
+            <img src="/assets/icons/LogoNordiskNoText.png" alt="Min Første Website Logo" />
+          </div>
+          
+          <h1 id="heading" class="hero-title">
+            Velkommen til <span class="gradient-text">Min Første Website</span>
+          </h1>
+          <p class="hero-description">
+            En moderne, interaktiv nettside som lærer deg grunnleggende 
+            <strong>HTML</strong>, <strong>CSS</strong> og <strong>JavaScript</strong>. 
+            Perfekt for nybegynnere som vil lære webutvikling!
           </p>
-          <button>CONTACT</button>
-          <button onclick="changeText()">Click</button>
+          <div class="hero-buttons">
+            <a href="#features" class="btn btn-primary">
+              Utforsk Features
+            </a>
+            <button class="btn btn-secondary" id="demoBtn">
+              Se Demo
+            </button>
+          </div>
+        </div>
+        
+        <!-- Dekorativ illustrasjon -->
+        <div class="hero-illustration" aria-hidden="true">
+          <img src="/assets/images/hero-bg.svg" alt="" />
         </div>
       </section>
 
-      <section
-        id="aboutSection"
-        class="about">
-        <h2>Section 2</h2>
-        <div id="hobbyListPrint"></div>
+      <!-- 
+        ==========================================
+        ABOUT SECTION - Om prosjektet
+        ==========================================
+        Forklarer hva siden er og hva du kan lære.
+      -->
+      <section id="about" class="about section-padding">
+        <div class="container">
+          <h2 class="section-title">Om Dette Prosjektet</h2>
+          <p class="section-description">
+            Dette er et læringsprosjekt som viser frem moderne webutvikling
+            med ren HTML, CSS og JavaScript - ingen frameworks!
+          </p>
+
+          <div class="about-grid">
+            <div class="about-card">
+              <div class="about-icon">
+                <img src="/assets/icons/html.png" alt="HTML5 ikon" />
+              </div>
+              <h3>Semantisk HTML5</h3>
+              <p>
+                Lær hvordan du strukturerer nettsider med moderne, 
+                semantiske HTML elementer som forbedrer tilgjengelighet og SEO.
+              </p>
+            </div>
+
+            <div class="about-card">
+              <div class="about-icon">
+                <img src="/assets/icons/css.png" alt="CSS3 ikon" />
+              </div>
+              <h3>Moderne CSS</h3>
+              <p>
+                Utforsk CSS Variables, Flexbox, Grid, animasjoner og 
+                responsive design prinsipper.
+              </p>
+            </div>
+
+            <div class="about-card">
+              <div class="about-icon">
+                <img src="/assets/icons/javascript.png" alt="JavaScript ikon" />
+              </div>
+              <h3>Interaktiv JavaScript</h3>
+              <p>
+                Oppdag hvordan JavaScript gjør nettsider levende med 
+                DOM manipulation, events og moderne ES6+ syntax.
+              </p>
+            </div>
+          </div>
+        </div>
       </section>
-      <section
-        id="contactSection"
-        class="contact">
-        <h2>Section 3</h2>
-        <div id="cardContainer"></div>
+
+      <!-- 
+        ==========================================
+        FEATURES SECTION - Hva kan du lære?
+        ==========================================
+        Viser frem alle konsepter som demonstreres på siden.
+      -->
+      <section id="features" class="features section-padding">
+        <div class="container">
+          <h2 class="section-title">Hva Kan Du Lære?</h2>
+          <p class="section-description">
+            Denne nettsiden demonstrerer viktige konsepter innen webutvikling
+          </p>
+
+          <div class="features-grid">
+            <!-- Feature 1 -->
+            <div class="feature-card">
+              <div class="feature-icon">
+                <img src="/assets/icons/responsive.png" alt="Responsive design ikon" />
+              </div>
+              <h3>Responsive Design</h3>
+              <p>Fungerer perfekt på mobil, tablet og desktop</p>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="feature-card">
+              <div class="feature-icon">
+                <img src="/assets/icons/modern.png" alt="Moderne design ikon" />
+              </div>
+              <h3>Moderne UI/UX</h3>
+              <p>Behagelige farger, smooth animasjoner og god kontrast</p>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="feature-card">
+              <div class="feature-icon">
+                <img src="/assets/icons/interactive.png" alt="Interaktivitet ikon" />
+              </div>
+              <h3>Interaktivitet</h3>
+              <p>Klikk, hover, scroll - alt reagerer på brukerens handlinger</p>
+            </div>
+
+            <!-- Feature 4 -->
+            <div class="feature-card">
+              <div class="feature-icon">
+                <img src="/assets/icons/wheel-chair.png" alt="Tilgjengelighet ikon" />
+              </div>
+              <h3>Tilgjengelighet</h3>
+              <p>Bygget med accessibility i tankene fra starten</p>
+            </div>
+
+            <!-- Feature 5 -->
+            <div class="feature-card">
+              <div class="feature-icon">
+                <img src="/assets/icons/search.png" alt="SEO ikon" />
+              </div>
+              <h3>SEO Optimalisert</h3>
+              <p>Riktige meta tags og semantisk struktur</p>
+            </div>
+
+            <!-- Feature 6 -->
+            <div class="feature-card">
+              <div class="feature-icon">
+                <img src="/assets/icons/books.png" alt="Dokumentasjon ikon" />
+              </div>
+              <h3>Godt Dokumentert</h3>
+              <p>Omfattende kommentarer som forklarer alt</p>
+            </div>
+          </div>
+        </div>
       </section>
+
+      <!-- 
+        ==========================================
+        PLAYGROUND SECTION - Interaktiv demo
+        ==========================================
+        Her kan brukere teste ut JavaScript funksjoner live.
+      -->
+      <section id="playground" class="playground section-padding">
+        <div class="container">
+          <h2 class="section-title">Interaktiv Playground</h2>
+          <p class="section-description">
+            Test ut JavaScript funksjoner og se resultatet live!
+          </p>
+
+          <div class="playground-container">
+            <!-- Tabs for ulike eksempler -->
+            <div class="tabs">
+              <button class="tab-btn active" data-tab="html">HTML</button>
+              <button class="tab-btn" data-tab="css">CSS</button>
+              <button class="tab-btn" data-tab="react">⚛️ React</button>
+              <button class="tab-btn" data-tab="typescript">📘 TypeScript</button>
+              <button class="tab-btn" data-tab="tailwind">🎨 Tailwind</button>
+              <button class="tab-btn" data-tab="nodejs">🟢 Node.js</button>
+              <button class="tab-btn" data-tab="api">🌐 API</button>
+              <button class="tab-btn" data-tab="variables">Variabler</button>
+              <button class="tab-btn" data-tab="functions">Funksjoner</button>
+              <button class="tab-btn" data-tab="arrays">Arrays</button>
+              <button class="tab-btn" data-tab="objects">Objects</button>
+              <button class="tab-btn" data-tab="dom">DOM</button>
+              <button class="tab-btn" data-tab="events">Events</button>
+              <button class="tab-btn" data-tab="async">Async</button>
+              <button class="tab-btn" data-tab="storage">Storage</button>
+            </div>
+
+            <!-- Tab content -->
+            <div class="tab-content active" id="html-tab">
+              <div class="playground-demo">
+                <h3>HTML Basics</h3>
+                <p>HTML (HyperText Markup Language) er strukturen til nettsider.</p>
+                
+                <div class="demo-controls">
+                  <button class="btn btn-primary" id="htmlTagsBtn">Semantiske Tags</button>
+                  <button class="btn btn-secondary" id="htmlFormBtn">Form Elements</button>
+                  <button class="btn btn-accent" id="htmlListBtn">Lists</button>
+                </div>
+                
+                <div class="demo-output" id="htmlOutput">
+                  <p style="color: var(--text-muted);">Klikk på en knapp for å se HTML eksempler!</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-content" id="css-tab">
+              <div class="playground-demo">
+                <h3>CSS Basics</h3>
+                <p>CSS (Cascading Style Sheets) styler HTML elementer.</p>
+                
+                <div class="demo-controls">
+                  <button class="btn btn-primary" id="cssFlexBtn">Flexbox</button>
+                  <button class="btn btn-secondary" id="cssGridBtn">Grid</button>
+                  <button class="btn btn-accent" id="cssAnimBtn">Animation</button>
+                </div>
+                
+                <div class="demo-output" id="cssOutput">
+                  <p style="color: var(--text-muted);">Klikk på en knapp for å se CSS i aksjon!</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-content" id="react-tab">
+              <div class="playground-demo">
+                <h3>⚛️ React Basics</h3>
+                <p>React er et JavaScript library for å bygge brukergrensesnitt.</p>
+                
+                <div class="demo-controls">
+                  <button class="btn btn-primary" id="reactComponentBtn">Component</button>
+                  <button class="btn btn-secondary" id="reactStateBtn">useState</button>
+                  <button class="btn btn-accent" id="reactEffectBtn">useEffect</button>
+                </div>
+                
+                <div class="demo-output" id="reactOutput">
+                  <p style="color: var(--text-muted);">Klikk på en knapp for å se React eksempler!</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-content" id="typescript-tab">
+              <div class="playground-demo">
+                <h3>📘 TypeScript Basics</h3>
+                <p>TypeScript er JavaScript med type safety.</p>
+                
+                <div class="demo-controls">
+                  <button class="btn btn-primary" id="tsTypesBtn">Types</button>
+                  <button class="btn btn-secondary" id="tsInterfaceBtn">Interface</button>
+                  <button class="btn btn-accent" id="tsGenericsBtn">Generics</button>
+                </div>
+                
+                <div class="demo-output" id="tsOutput">
+                  <p style="color: var(--text-muted);">Klikk på en knapp for å se TypeScript eksempler!</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-content" id="tailwind-tab">
+              <div class="playground-demo">
+                <h3>🎨 Tailwind CSS</h3>
+                <p>Tailwind er et utility-first CSS framework.</p>
+                
+                <div class="demo-controls">
+                  <button class="btn btn-primary" id="twLayoutBtn">Layout</button>
+                  <button class="btn btn-secondary" id="twColorsBtn">Colors</button>
+                  <button class="btn btn-accent" id="twResponsiveBtn">Responsive</button>
+                </div>
+                
+                <div class="demo-output" id="twOutput">
+                  <p style="color: var(--text-muted);">Klikk på en knapp for å se Tailwind eksempler!</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-content" id="nodejs-tab">
+              <div class="playground-demo">
+                <h3>🟢 Node.js Basics</h3>
+                <p>Node.js lar deg kjøre JavaScript på serveren.</p>
+                
+                <div class="demo-controls">
+                  <button class="btn btn-primary" id="nodeModulesBtn">Modules</button>
+                  <button class="btn btn-secondary" id="nodeExpressBtn">Express</button>
+                  <button class="btn btn-accent" id="nodeFsBtn">File System</button>
+                </div>
+                
+                <div class="demo-output" id="nodeOutput">
+                  <p style="color: var(--text-muted);">Klikk på en knapp for å se Node.js eksempler!</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-content" id="api-tab">
+              <div class="playground-demo">
+                <h3>🌐 API & REST</h3>
+                <p>Lær hvordan du jobber med APIs og REST endpoints.</p>
+                
+                <div class="demo-controls">
+                  <button class="btn btn-primary" id="apiGetBtn">GET Request</button>
+                  <button class="btn btn-secondary" id="apiPostBtn">POST Request</button>
+                  <button class="btn btn-accent" id="apiErrorBtn">Error Handling</button>
+                </div>
+                
+                <div class="demo-output" id="apiOutput">
+                  <p style="color: var(--text-muted);">Klikk på en knapp for å se API eksempler!</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-content" id="variables-tab">
+              <div class="playground-demo">
+                <h3>Variabler i JavaScript</h3>
+                <p>Variabler brukes til å lagre data. Vi har <code>let</code> og <code>const</code>.</p>
+                
+                <div class="demo-controls">
+                  <input type="text" id="nameInput" placeholder="Skriv inn navnet ditt" />
+                  <button class="btn btn-primary" id="greetBtn">Hilsen</button>
+                </div>
+                
+                <div class="demo-output" id="greetOutput">
+                  <!-- Output vises her -->
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-content" id="functions-tab">
+              <div class="playground-demo">
+                <h3>Funksjoner</h3>
+                <p>Funksjoner er gjenbrukbare kodeblokker.</p>
+                
+                <div class="demo-controls">
+                  <input type="number" id="num1" placeholder="Tall 1" value="5" />
+                  <input type="number" id="num2" placeholder="Tall 2" value="3" />
+                  <button class="btn btn-primary" id="calculateBtn">Beregn</button>
+                </div>
+                
+                <div class="demo-output" id="calculateOutput"></div>
+              </div>
+            </div>
+
+            <div class="tab-content" id="dom-tab">
+              <div class="playground-demo">
+                <h3>DOM Manipulation</h3>
+                <p>JavaScript kan endre HTML og CSS dynamisk.</p>
+                
+                <div class="demo-controls">
+                  <button class="btn btn-primary" id="changeColorBtn">Endre Farge</button>
+                  <button class="btn btn-secondary" id="changeTextBtn">Endre Tekst</button>
+                </div>
+                
+                <div class="demo-output">
+                  <div id="demoBox" class="demo-box">
+                    Jeg kan endres!
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-content" id="arrays-tab">
+              <div class="playground-demo">
+                <h3>Array Methods</h3>
+                <p>Arrays har kraftige metoder for å manipulere data.</p>
+                
+                <div class="demo-controls">
+                  <button class="btn btn-primary" id="arrayMapBtn">Map</button>
+                  <button class="btn btn-secondary" id="arrayFilterBtn">Filter</button>
+                  <button class="btn btn-accent" id="arrayReduceBtn">Reduce</button>
+                </div>
+                
+                <div class="demo-output" id="arrayOutput">
+                  <p style="color: var(--text-muted);">Klikk på en knapp for å se array methods i aksjon!</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-content" id="objects-tab">
+              <div class="playground-demo">
+                <h3>Objects & Destructuring</h3>
+                <p>Objects brukes til å lagre relatert data sammen.</p>
+                
+                <div class="demo-controls">
+                  <button class="btn btn-primary" id="createObjectBtn">Lag Object</button>
+                  <button class="btn btn-secondary" id="destructureBtn">Destructure</button>
+                  <button class="btn btn-accent" id="spreadBtn">Spread</button>
+                </div>
+                
+                <div class="demo-output" id="objectOutput"></div>
+              </div>
+            </div>
+
+            <div class="tab-content" id="events-tab">
+              <div class="playground-demo">
+                <h3>Event Listeners</h3>
+                <p>Lytt til brukerens handlinger (klikk, hover, etc.)</p>
+                
+                <div class="demo-controls">
+                  <button class="btn btn-primary" id="clickCountBtn">Klikk Meg!</button>
+                </div>
+                
+                <div class="demo-output">
+                  <p>Antall klikk: <span id="clickCount">0</span></p>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-content" id="async-tab">
+              <div class="playground-demo">
+                <h3>Async & Promises</h3>
+                <p>Håndter asynkrone operasjoner med Promises og async/await.</p>
+                
+                <div class="demo-controls">
+                  <button class="btn btn-primary" id="fetchDataBtn">Fetch Data</button>
+                  <button class="btn btn-secondary" id="asyncAwaitBtn">Async/Await</button>
+                </div>
+                
+                <div class="demo-output" id="asyncOutput">
+                  <p style="color: var(--text-muted);">Klikk for å se asynkron kode i aksjon!</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-content" id="storage-tab">
+              <div class="playground-demo">
+                <h3>LocalStorage</h3>
+                <p>Lagre data i browseren som blir værende mellom sessions.</p>
+                
+                <div class="demo-controls">
+                  <input type="text" id="storageInput" placeholder="Skriv noe..." />
+                  <button class="btn btn-primary" id="saveBtn">Lagre</button>
+                  <button class="btn btn-secondary" id="loadBtn">Last</button>
+                  <button class="btn btn-ghost" id="clearBtn">Slett</button>
+                </div>
+                
+                <div class="demo-output" id="storageOutput"></div>
+              </div>
+            </div>
+
+            <div class="tab-content" id="vue-tab">
+              <div class="playground-demo">
+                <h3>💚 Vue.js Basics</h3>
+                <p>Vue er et progressivt framework for å bygge brukergrensesnitt.</p>
+                
+                <div class="demo-controls">
+                  <button class="btn btn-primary" id="vueTemplateBtn">Template</button>
+                  <button class="btn btn-secondary" id="vueDataBtn">Data & Methods</button>
+                  <button class="btn btn-accent" id="vueComputedBtn">Computed</button>
+                </div>
+                
+                <div class="demo-output" id="vueOutput">
+                  <p style="color: var(--text-muted);">Klikk på en knapp for å se Vue eksempler!</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- 
+        ==========================================
+        PEOPLE SECTION - Data fra JSON
+        ==========================================
+        Viser hvordan man henter og viser data fra en JSON fil.
+        Demonstrerer Fetch API, array methods og dynamisk HTML.
+      -->
+      <section id="people" class="people section-padding">
+        <div class="container">
+          <h2 class="section-title">People Database</h2>
+          <p class="section-description">
+            Data hentet fra JSON fil og vist dynamisk med JavaScript
+          </p>
+
+          <!-- Filter/Search controls -->
+          <div class="people-controls">
+            <div class="search-box">
+              <img src="/assets/icons/search.png" alt="" class="search-icon" aria-hidden="true" />
+              <input 
+                type="text" 
+                id="searchInput" 
+                placeholder="Søk etter navn..." 
+                aria-label="Søk etter personer" />
+            </div>
+            
+            <div class="filter-buttons">
+              <img src="/assets/icons/filter.png" alt="" class="filter-icon" aria-hidden="true" />
+              <button class="filter-btn active" data-filter="all">Alle</button>
+              <button class="filter-btn" data-filter="male">Menn</button>
+              <button class="filter-btn" data-filter="female">Kvinner</button>
+            </div>
+          </div>
+
+          <!-- Cards container - Fylles med JavaScript -->
+          <div id="cardContainer" class="cards-grid">
+            <!-- Cards genereres dynamisk med JavaScript -->
+          </div>
+
+          <!-- Loading state -->
+          <div id="loadingState" class="loading-state">
+            <p>Laster personer...</p>
+          </div>
+
+          <!-- Empty state -->
+          <div id="emptyState" class="empty-state" style="display: none;">
+            <p>Ingen personer funnet</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 
+        ==========================================
+        CONTACT SECTION - Kontaktskjema
+        ==========================================
+        Demonstrerer HTML forms og JavaScript validering.
+      -->
+      <section id="contact" class="contact section-padding">
+        <div class="container">
+          <h2 class="section-title">Kontakt Oss</h2>
+          <p class="section-description">
+            Send oss en melding! (Dette er en demo - sender ikke faktisk)
+          </p>
+
+          <form id="contactForm" class="contact-form" novalidate>
+            <!-- Name field -->
+            <div class="form-group">
+              <label for="contactName">Navn *</label>
+              <input 
+                type="text" 
+                id="contactName" 
+                name="name" 
+                required 
+                aria-required="true"
+                placeholder="Ditt navn" />
+              <span class="error-message" id="nameError"></span>
+            </div>
+
+            <!-- Email field -->
+            <div class="form-group">
+              <label for="contactEmail">E-post *</label>
+              <input 
+                type="email" 
+                id="contactEmail" 
+                name="email" 
+                required 
+                aria-required="true"
+                placeholder="din@epost.no" />
+              <span class="error-message" id="emailError"></span>
+            </div>
+
+            <!-- Message field -->
+            <div class="form-group">
+              <label for="contactMessage">Melding *</label>
+              <textarea 
+                id="contactMessage" 
+                name="message" 
+                rows="5" 
+                required 
+                aria-required="true"
+                placeholder="Skriv din melding her..."></textarea>
+              <span class="error-message" id="messageError"></span>
+            </div>
+
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-large">
+              Send Melding
+            </button>
+
+            <!-- Success message -->
+            <div id="formSuccess" class="success-message" style="display: none;">
+              ✅ Melding sendt! (Dette er bare en demo)
+            </div>
+          </form>
+        </div>
+      </section>
+
     </main>
-    <a href="#top">
-      <button
-        id="scrollToTop"
-        class="scrollToTopButton">
-        ↑
-      </button>
-    </a>
-    <footer>footer</footer>
+    <!-- 
+      ==========================================
+      SCROLL TO TOP BUTTON
+      ==========================================
+      Fast knapp som vises når du scroller ned.
+      Tar deg tilbake til toppen av siden.
+    -->
+    <button
+      id="scrollToTop"
+      class="scroll-to-top-btn"
+      aria-label="Scroll til toppen">
+      ↑
+    </button>
+
+    <!-- 
+      ==========================================
+      FOOTER - Bunntekst
+      ==========================================
+      Footer element er semantisk HTML5 for bunnen av siden.
+      Inneholder copyright, lenker og annen info.
+    -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <!-- Footer info -->
+          <div class="footer-section">
+            <h3>Min Første Website</h3>
+            <p>
+              Et læringsprosjekt for å demonstrere moderne webutvikling
+              med HTML, CSS og JavaScript.
+            </p>
+          </div>
+
+          <!-- Quick links -->
+          <div class="footer-section">
+            <h4>Hurtiglenker</h4>
+            <ul class="footer-links">
+              <li><a href="#about">Om</a></li>
+              <li><a href="#features">Features</a></li>
+              <li><a href="#playground">Playground</a></li>
+              <li><a href="#contact">Kontakt</a></li>
+            </ul>
+          </div>
+
+          <!-- Resources -->
+          <div class="footer-section">
+            <h4>Ressurser</h4>
+            <ul class="footer-links">
+              <li><a href="https://developer.mozilla.org/en-US/" target="_blank" rel="noopener">MDN Web Docs</a></li>
+              <li><a href="https://www.w3schools.com/" target="_blank" rel="noopener">W3Schools</a></li>
+              <li><a href="https://css-tricks.com/" target="_blank" rel="noopener">CSS-Tricks</a></li>
+            </ul>
+          </div>
+
+          <!-- Social (placeholder) -->
+          <div class="footer-section">
+            <h4>Følg Oss</h4>
+            <div class="social-links">
+              <a href="#" aria-label="GitHub" class="social-link">GitHub</a>
+              <a href="#" aria-label="Twitter" class="social-link">Twitter</a>
+              <a href="#" aria-label="LinkedIn" class="social-link">LinkedIn</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="footer-bottom">
+          <p>
+            &copy; 2025 Min Første Website. Laget med ❤️ for læring.
+          </p>
+          <p class="footer-note">
+            Dette er et utdanningsprosjekt. Koden er godt kommentert for læring!
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- 
+      ==========================================
+      MODAL - Popup vindu
+      ==========================================
+      Modal brukes til å vise innhold i et overlay.
+      Skjult som standard, vises med JavaScript.
+    -->
+    <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="modal-overlay"></div>
+      <div class="modal-content">
+        <button class="modal-close" aria-label="Lukk modal">×</button>
+        <div id="modalBody" class="modal-body">
+          <!-- Innhold settes dynamisk med JavaScript -->
+        </div>
+      </div>
+    </div>
+
   </body>
 </html>
+
+<!--
+  ============================================
+  SLUTT PÅ INDEX.HTML
+  ============================================
+  
+  Dette HTML dokumentet demonstrerer:
+  
+  ✅ Semantisk HTML5 struktur
+  ✅ Accessibility best practices
+  ✅ SEO optimalisering
+  ✅ Responsive design prinsipper
+  ✅ Moderne HTML patterns
+  
+  Neste steg:
+  - Style alle seksjoner med CSS
+  - Legg til JavaScript funksjonalitet
+  - Test på ulike enheter
+  
+  God læring! 🚀
+-->

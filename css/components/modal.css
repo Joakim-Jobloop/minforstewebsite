@@ -1,0 +1,219 @@
+/**
+ * ============================================
+ * MODAL.CSS
+ * ============================================
+ * Plassering: /css/components/modal.css
+ * 
+ * Styling for modal/popup vindu.
+ * 
+ * Konsepter demonstrert:
+ * - Fixed positioning
+ * - Overlay med backdrop
+ * - Centering med flexbox
+ * - Animasjoner
+ * - Z-index layering
+ */
+
+/* ==================== */
+/* MODAL CONTAINER */
+/* ==================== */
+
+/**
+ * Modal - Hovedcontainer
+ * Skjult som standard, vises med JavaScript
+ */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  
+  /* Skjult som standard */
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-base);
+}
+
+/**
+ * Modal open state
+ * Legges til med JavaScript når modal åpnes
+ */
+.modal.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ==================== */
+/* MODAL OVERLAY */
+/* ==================== */
+
+/**
+ * Modal overlay - Mørk bakgrunn bak modal
+ * Klikk på denne lukker modal
+ */
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: var(--z-modal-backdrop);
+}
+
+/* ==================== */
+/* MODAL CONTENT */
+/* ==================== */
+
+/**
+ * Modal content - Selve innholdet
+ */
+.modal-content {
+  position: relative;
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-xl);
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  z-index: var(--z-modal);
+  box-shadow: var(--shadow-2xl);
+  border: 1px solid var(--border-color);
+  
+  /* Animasjon */
+  transform: scale(0.9);
+  transition: transform var(--transition-base);
+}
+
+.modal.open .modal-content {
+  transform: scale(1);
+}
+
+/* ==================== */
+/* MODAL CLOSE BUTTON */
+/* ==================== */
+
+/**
+ * Close button - X knapp øverst til høyre
+ */
+.modal-close {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-tertiary);
+  border: none;
+  border-radius: var(--radius-full);
+  color: var(--text-secondary);
+  font-size: var(--text-2xl);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  z-index: 1;
+}
+
+.modal-close:hover {
+  background-color: var(--error-color);
+  color: white;
+  transform: rotate(90deg);
+}
+
+/* ==================== */
+/* MODAL BODY */
+/* ==================== */
+
+/**
+ * Modal body - Innholdet i modal
+ */
+.modal-body {
+  padding: var(--space-8);
+}
+
+.modal-body h2 {
+  margin-bottom: var(--space-4);
+  color: var(--text-primary);
+}
+
+.modal-body p {
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+}
+
+/* ==================== */
+/* SCROLLBAR STYLING */
+/* ==================== */
+
+/**
+ * Custom scrollbar for modal content
+ */
+.modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-full);
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
+}
+
+/* ==================== */
+/* RESPONSIVE */
+/* ==================== */
+
+@media (max-width: 768px) {
+  .modal {
+    padding: var(--space-2);
+  }
+
+  .modal-content {
+    max-height: 95vh;
+    border-radius: var(--radius-lg);
+  }
+
+  .modal-body {
+    padding: var(--space-6);
+  }
+
+  .modal-close {
+    top: var(--space-2);
+    right: var(--space-2);
+  }
+}
+
+/* ==================== */
+/* ACCESSIBILITY */
+/* ==================== */
+
+/**
+ * Forhindrer scrolling på body når modal er åpen
+ * Legges til med JavaScript
+ */
+body.modal-open {
+  overflow: hidden;
+}
+
+/**
+ * ============================================
+ * SLUTT PÅ MODAL.CSS
+ * ============================================
+ * 
+ * Modal er nå klar til bruk.
+ * Åpnes og lukkes med JavaScript i main.js
+ */

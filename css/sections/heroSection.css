@@ -1,36 +1,269 @@
-section.hero {
+/**
+ * ============================================
+ * HERO SECTION.CSS
+ * ============================================
+ * Plassering: /css/sections/heroSection.css
+ * 
+ * Styling for hero section - første inntrykk av siden.
+ * 
+ * Konsepter demonstrert:
+ * - Flexbox for sentrering
+ * - Gradient text effekt
+ * - Responsive typography
+ * - Animasjoner
+ */
+
+/* ==================== */
+/* HERO SECTION */
+/* ==================== */
+
+/**
+ * Hero section - Tar opp hele viewport høyden
+ * Flexbox sentrerer innholdet både horisontalt og vertikalt
+ */
+.hero {
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
+  padding: var(--space-20) var(--space-6);
+  padding-top: calc(var(--header-height) + var(--space-20)); /* Plass til fixed header */
+  position: relative;
+  overflow: hidden; /* For dekorative elementer */
 }
 
-section.hero h1 {
-  color: aquamarine;
-  font-size: 84px;
-  margin-bottom: 24px; /* det samme som: margin: 0 0 24px 0; */
+/**
+ * Dekorativ bakgrunn med gradient
+ * Bruker ::before pseudo-element
+ */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at 20% 50%,
+    rgba(124, 58, 237, 0.15) 0%,
+    transparent 50%
+  ),
+  radial-gradient(
+    circle at 80% 80%,
+    rgba(6, 182, 212, 0.15) 0%,
+    transparent 50%
+  );
+  z-index: -1;
 }
 
-section.hero p {
-  color: rgb(33, 251, 251);
-  font-size: 28px;
-  margin-bottom: 24px;
+/* ==================== */
+/* HERO CONTENT */
+/* ==================== */
+
+/**
+ * Hero content container
+ * Max-width for lesbarhet
+ */
+.hero-content {
+  max-width: 800px;
+  text-align: center;
+  z-index: 1;
 }
 
-section.hero button {
-  font-size: 48px;
-  font-weight: 600;
-  padding: 12px 24px;
-  border-radius: 40px;
-  background-color: rgb(30, 255, 139);
-  border: none;
-  color: rgb(2, 62, 42);
+/**
+ * Hero logo - Større versjon av logo
+ */
+.hero-logo {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto var(--space-8);
+  animation: logoFloat 3s ease-in-out infinite;
 }
 
-section.hero button:hover {
-  scale: 1.1;
+.hero-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 30px rgba(124, 58, 237, 0.5));
 }
 
-section.hero button:active {
-  scale: 0.99;
+@keyframes logoFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
+
+/**
+ * Hero title - Hovedoverskrift
+ * Stor, bold og iøynefallende
+ */
+.hero-title {
+  font-size: var(--text-6xl); /* 60px */
+  font-weight: var(--font-extrabold);
+  line-height: var(--leading-tight);
+  margin-bottom: var(--space-6);
+  color: var(--text-primary);
+}
+
+/**
+ * Gradient text effekt
+ * Bruker background-clip for å "klippe" gradient til teksten
+ */
+.gradient-text {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color) 0%,
+    var(--secondary-color) 50%,
+    var(--accent-color) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 8s ease infinite;
+  background-size: 200% 200%;
+}
+
+/**
+ * Gradient animasjon - Beveger gradienten
+ */
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/**
+ * Hero description - Undertekst
+ */
+.hero-description {
+  font-size: var(--text-xl);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: var(--space-8);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-description strong {
+  color: var(--primary-color);
+  font-weight: var(--font-semibold);
+}
+
+/* ==================== */
+/* HERO BUTTONS */
+/* ==================== */
+
+/**
+ * Button container - Flexbox for spacing
+ */
+.hero-buttons {
+  display: flex;
+  gap: var(--space-4);
+  justify-content: center;
+  flex-wrap: wrap; /* Wrapper på mobil */
+}
+
+/* ==================== */
+/* HERO ILLUSTRATION */
+/* ==================== */
+
+/**
+ * Hero illustrasjon
+ */
+.hero-illustration {
+  position: absolute;
+  right: -50px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 500px;
+  height: 500px;
+  opacity: 0.15;
+  pointer-events: none; /* Ikke blokkerer klikk */
+  z-index: 0;
+}
+
+.hero-illustration img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+/* ==================== */
+/* RESPONSIVE */
+/* ==================== */
+
+/**
+ * Tablet og mindre
+ */
+@media (max-width: 768px) {
+  .hero {
+    min-height: calc(100vh - var(--header-height));
+    padding: var(--space-12) var(--space-4);
+  }
+
+  .hero-logo {
+    width: 100px;
+    height: 100px;
+  }
+
+  .hero-title {
+    font-size: var(--text-4xl); /* 36px */
+  }
+
+  .hero-description {
+    font-size: var(--text-lg);
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-illustration {
+    display: none; /* Skjul på mobil */
+  }
+}
+
+/**
+ * Mobil
+ */
+@media (max-width: 480px) {
+  .hero-logo {
+    width: 80px;
+    height: 80px;
+  }
+
+  .hero-title {
+    font-size: var(--text-3xl); /* 30px */
+  }
+
+  .hero-description {
+    font-size: var(--text-base);
+  }
+}
+
+/**
+ * ============================================
+ * SLUTT PÅ HERO SECTION.CSS
+ * ============================================
+ * 
+ * Hero section er nå responsiv med gradient effekter
+ * og smooth animasjoner.
+ */
