@@ -1,5 +1,4 @@
 const hobbiesList = document.getElementById("hobbyListPrint");
-const navbar = document.getElementById("navbar");
 
 const jsonData = async () => {
   try {
@@ -17,7 +16,13 @@ const jsonData = async () => {
 
 const data = await jsonData();
 
-console.log(data);
+console.log(data.hobbyer);
+
+const allHobbyTypes = Object.keys(data.hobbyer);
+
+console.log(allHobbyTypes);
+
+// console.log(data.hobbyer[randomHobbyType()].length);
 
 // const hobbyType = "Kreative";
 // const randomHobby = 0;
@@ -36,13 +41,13 @@ const randomHobbyFromData = data.hobbyer[randomHobbyType()][randomHobbyIndex];
 
 console.log(randomHobbyFromData);
 
-// function a() {
-//   const b = Object.keys(data.hobbyer);
-//   const c = Math.floor(Math.random() * b.length);
-//   const d = b[c];
-//   const e = data.hobbyer[d].length;
-//   const f = Math.floor(Math.random() * e);
-//   return data.hobbyer[d][f];
-// }
+function a() {
+  const b = Object.keys(data.hobbyer);
+  const c = Math.floor(Math.random() * b.length);
+  const d = b[c];
+  const e = data.hobbyer[d].length;
+  const f = Math.floor(Math.random() * e);
+  return data.hobbyer[d][f];
+}
 
 // console.log(a());

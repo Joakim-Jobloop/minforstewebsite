@@ -3,6 +3,7 @@
 @import url("./sections/heroSection.css");
 @import url("./utils/scrollToTopButton.css");
 @import url("./components/cards.css");
+@import url("./sections/pokeSection.css");
 
 main {
   padding-inline: 24px;
